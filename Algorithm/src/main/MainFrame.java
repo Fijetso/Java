@@ -63,6 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setName("MainJFrame"); // NOI18N
         jPanel1.setLayout(null);
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setForeground(new java.awt.Color(225, 225, 225));
         jPanel4.setName("TitleJFrame"); // NOI18N
 
@@ -131,6 +132,11 @@ public class MainFrame extends javax.swing.JFrame {
         importButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         importButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/contract.png"))); // NOI18N
         importButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        importButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                importButtonMouseClicked(evt);
+            }
+        });
 
         numberElementTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         numberElementTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +159,6 @@ public class MainFrame extends javax.swing.JFrame {
         pauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pause.png"))); // NOI18N
         pauseButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        algorithmComboBox.setBackground(new java.awt.Color(255, 255, 255));
         algorithmComboBox.setForeground(new java.awt.Color(102, 102, 102));
         algorithmComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -319,6 +324,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void minimizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeLabelMouseClicked
        this.setState(MainFrame.ICONIFIED);
     }//GEN-LAST:event_minimizeLabelMouseClicked
+
+    private void importButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importButtonMouseClicked
+        InputFrame input = new InputFrame();
+        input.setVisible(true);
+        input.pack();
+        input.setLocationRelativeTo(null);
+    }//GEN-LAST:event_importButtonMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
