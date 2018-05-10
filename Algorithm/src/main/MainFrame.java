@@ -67,7 +67,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4.setName("TitleJFrame"); // NOI18N
 
         minimizeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/minimize_button.png"))); // NOI18N
-        minimizeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        minimizeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minimizeLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         minimizeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -76,6 +76,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         closeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/close_button.png"))); // NOI18N
+        closeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         closeLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         closeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -129,6 +130,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         importButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         importButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/contract.png"))); // NOI18N
+        importButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         numberElementTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         numberElementTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -146,8 +148,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/descending.png"))); // NOI18N
 
         playButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/play-button.png"))); // NOI18N
+        playButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         pauseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pause.png"))); // NOI18N
+        pauseButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         algorithmComboBox.setBackground(new java.awt.Color(255, 255, 255));
         algorithmComboBox.setForeground(new java.awt.Color(102, 102, 102));
@@ -316,9 +320,6 @@ public class MainFrame extends javax.swing.JFrame {
        this.setState(MainFrame.ICONIFIED);
     }//GEN-LAST:event_minimizeLabelMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
