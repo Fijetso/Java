@@ -295,8 +295,13 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setBounds(600, 50, 400, 140);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/information.png"))); // NOI18N
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(980, 580, 20, 20);
+        jLabel11.setBounds(970, 600, 24, 24);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -306,10 +311,10 @@ public class MainFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1000, 429));
+        setSize(new java.awt.Dimension(1000, 630));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -331,6 +336,13 @@ public class MainFrame extends javax.swing.JFrame {
         input.pack();
         input.setLocationRelativeTo(null);
     }//GEN-LAST:event_importButtonMouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+     InforFrame infor = new InforFrame();
+     infor.setVisible(true);
+     infor.pack();
+     infor.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
