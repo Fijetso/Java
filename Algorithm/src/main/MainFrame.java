@@ -69,9 +69,19 @@ public class MainFrame extends javax.swing.JFrame {
         minimizeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/minimize_button.png"))); // NOI18N
         minimizeLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         minimizeLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        minimizeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeLabelMouseClicked(evt);
+            }
+        });
 
         closeLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/close_button.png"))); // NOI18N
         closeLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        closeLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeLabelMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
@@ -297,6 +307,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void numberElementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberElementTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_numberElementTextFieldActionPerformed
+
+    private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeLabelMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_closeLabelMouseClicked
+
+    private void minimizeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeLabelMouseClicked
+       this.setState(MainFrame.ICONIFIED);
+    }//GEN-LAST:event_minimizeLabelMouseClicked
 
     /**
      * @param args the command line arguments
