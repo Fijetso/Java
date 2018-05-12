@@ -1,5 +1,8 @@
 package main;
 
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Nguyen Thi Ngoc Huyen
@@ -331,10 +334,32 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeLabelMouseClicked
 
     private void importButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importButtonMouseClicked
-        InputFrame input = new InputFrame();
-        input.setVisible(true);
-        input.pack();
-        input.setLocationRelativeTo(null);
+        
+        //// nhập số phần tử của mảng
+        String getNumberElement = numberElementTextField.getText();
+        int x;
+        /// ? không vào được trường hợp này
+        if (getNumberElement == null){
+            JOptionPane.showMessageDialog(null,"Yêu cầu nhập số phần tử trước!","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+             try{
+            x = Integer.parseInt(getNumberElement);
+            if(x<2 || x>15){
+                JOptionPane.showMessageDialog(null,"Số phần tử bạn nhập yêu cầu phải lớn hơn 1 và nhỏ hơn 16","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+            InputFrame input = new InputFrame();
+            input.setVisible(true);
+            input.pack();
+            input.setLocationRelativeTo(null);
+            input.setNumberElements(x);
+            }
+            }
+            catch(HeadlessException | NumberFormatException e){
+                 JOptionPane.showMessageDialog(null,"Số phần tử bạn nhập vào không phù hợp","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_importButtonMouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
