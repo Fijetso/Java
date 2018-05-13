@@ -349,7 +349,7 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"Số phần tử bạn nhập yêu cầu phải lớn hơn 1 và nhỏ hơn 16","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
             }
             else{
-            InputFrame input = new InputFrame();
+            FrameInput input = new FrameInput();
             input.setVisible(true);
             input.pack();
             input.setLocationRelativeTo(null);
