@@ -351,7 +351,7 @@ public class MainFrame extends javax.swing.JFrame {
             else{
             FrameInput input = new FrameInput();
             input.setVisible(true);
-            input.pack();
+//            input.pack();
             input.setLocationRelativeTo(null);
             input.setNumberElements(x);
             }
