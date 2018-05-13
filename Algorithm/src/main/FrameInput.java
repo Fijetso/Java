@@ -28,11 +28,8 @@ public class FrameInput extends javax.swing.JFrame {
 	private JLabel[] lbArrays;
 	private int[] arrays;
 	private JButton btnOK;
-        private int numberElement;
+        private int numberElement =0;
         
-    public void setNumberElement(int numberElement){
-        this.numberElement = numberElement;
-    }
     /**
      * Creates new form FrameInput
      */
@@ -47,7 +44,8 @@ public class FrameInput extends javax.swing.JFrame {
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         
         ///Title label
-        JLabel jLabel1 = new JLabel("Nhập mảng");
+        String s = "Nhập "+Integer.toString(numberElement);
+        JLabel jLabel1 = new JLabel(s);
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/donut.png"))); // NOI18N
@@ -86,6 +84,7 @@ public class FrameInput extends javax.swing.JFrame {
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cancelButton.setBounds(this.getWidth()-105,this.getHeight()-50,100,40);
         cancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cancelButtonMouseClicked(evt);
             }
@@ -101,11 +100,13 @@ public class FrameInput extends javax.swing.JFrame {
         okButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         okButton.setBounds(cancelButton.getX()-70 -5,cancelButton.getY(),70,40);
         okButton.addMouseListener(new java.awt.event.MouseAdapter(){
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt){
             okButtonMouseClicked(evt);
             }
         });
         contentPane.add(okButton);
+//        createArray();
     }
     
     private void cancelButtonMouseClicked(java.awt.event.MouseEvent evt) {                                          
@@ -114,6 +115,31 @@ public class FrameInput extends javax.swing.JFrame {
     
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt){
         
+    }
+    
+    public void setNumberElement(int numberElement){
+    this.numberElement = numberElement;
+    }
+    
+    public void createArray(){
+        txtArrays = new JTextField[numberElement];
+        arrays = new int[numberElement];
+        
+        for(int i = 0;i<numberElement;i++){
+            JLabel cancelButton = new JLabel("Thoát");
+        cancelButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
+        cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            txtArrays[i] = new JTextField("0");
+            txtArrays[i].setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+         txtArrays[i].setBounds(this.getWidth()-105,this.getHeight()-100,100,40);
+//            txtArrays[i].setBounds(this.getWidth()/2-(numberElement/2)*(40+5),this.getHeight()/2,40,30);
+            txtArrays[i].setForeground(new java.awt.Color(102, 102, 102));
+            txtArrays[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            contentPane.add(txtArrays[i]);
+        }
+        contentPane.setVisible(true);
+        contentPane.validate();
+        contentPane.repaint();
     }
 
     /**
