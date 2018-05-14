@@ -166,7 +166,13 @@ public class FrameInput extends javax.swing.JFrame {
         this.setVisible(false);
     }     
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt){
-        
+        arrays = new int[numberElement];
+        for(int i = 0;i<numberElement;i++){
+            arrays[i]=Integer.parseInt(txtArrays[i].getText());
+        }
+//        for(int c:arrays){
+//            System.out.println(c);
+//        }
     }
     private static int parseNumberElement(String s) {
         int result;
