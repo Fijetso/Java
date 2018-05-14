@@ -350,10 +350,12 @@ public class MainFrame extends javax.swing.JFrame {
             }
             else{
             FrameInput input = new FrameInput();
+            input.numberElement = Integer.parseInt(numberElementTextField.getText());
             input.setVisible(true);
 //            input.pack();
             input.setLocationRelativeTo(null);
-            input.setNumberElements(x);
+//            input.setNumberElement(Integer.parseInt(numberElementTextField.getText()));
+//                System.out.println(Integer.parseInt(numberElementTextField.getText())); //// đã ra đúng giá trị
             }
             }
             catch(HeadlessException | NumberFormatException e){
