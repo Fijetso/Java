@@ -1,7 +1,7 @@
 package main;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -187,7 +187,23 @@ public class FrameMain extends javax.swing.JFrame {
         });
         panelControl.add(btnImport);
         
+        rdAscending = new JRadioButton();
+        rdAscending.setBounds(10,btnImport.getY() + btnImport.getHeight() + 5,24,24);
+        panelControl.add(rdAscending);
+        lbAscending = new JLabel();
+        lbAscending.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ascending.png"))); // NOI18N
+        lbAscending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAscending.setBounds(rdAscending.getX() + rdAscending.getWidth() + 2,rdAscending.getY(),24,24);
+        panelControl.add(lbAscending);
         
+        rdDescending = new JRadioButton();
+        rdDescending.setBounds(lbAscending.getX() + lbAscending.getWidth() + 10,rdAscending.getY(),24,24);
+        panelControl.add(rdDescending);
+        lbDescending = new JLabel();
+        lbDescending.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/descending.png"))); // NOI18N
+        lbDescending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDescending.setBounds(rdDescending.getX() + rdDescending.getWidth() + 2,rdDescending.getY(),24,24);
+        panelControl.add(lbDescending);
     }
     /**
      * @param args the command line arguments
@@ -239,10 +255,9 @@ public class FrameMain extends javax.swing.JFrame {
     }
     private final int MAIN_FRAME_WIDTH = 1000;
     private final int MAIN_FRAME_HEIGHT = 600;
-    private JLabel btnMinimize;
-    private JLabel btnClose;
-    private JLabel lbTitle;
-    private JLabel btnImport;
+    private JLabel lbTitle, btnMinimize, btnClose;
+    private JLabel btnImport,lbAscending,lbDescending;
+    private JRadioButton rdAscending,rdDescending;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel panelCode;
