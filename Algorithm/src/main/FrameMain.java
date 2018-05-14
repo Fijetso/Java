@@ -29,6 +29,9 @@ public class FrameMain extends javax.swing.JFrame {
 
         contentPane = new javax.swing.JPanel();
         panelTitle = new javax.swing.JPanel();
+        panelControl = new javax.swing.JPanel();
+        panelIdea = new javax.swing.JPanel();
+        panelCode = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -36,6 +39,7 @@ public class FrameMain extends javax.swing.JFrame {
 
         contentPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 5));
         contentPane.setForeground(new java.awt.Color(102, 102, 102));
+        contentPane.setPreferredSize(new java.awt.Dimension(1000, 600));
 
         panelTitle.setBackground(new java.awt.Color(255, 255, 255));
         panelTitle.setForeground(new java.awt.Color(102, 102, 102));
@@ -44,11 +48,55 @@ public class FrameMain extends javax.swing.JFrame {
         panelTitle.setLayout(panelTitleLayout);
         panelTitleLayout.setHorizontalGroup(
             panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelTitleLayout.setVerticalGroup(
             panelTitleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        panelControl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        panelControl.setForeground(new java.awt.Color(102, 102, 102));
+        panelControl.setPreferredSize(new java.awt.Dimension(300, 200));
+
+        javax.swing.GroupLayout panelControlLayout = new javax.swing.GroupLayout(panelControl);
+        panelControl.setLayout(panelControlLayout);
+        panelControlLayout.setHorizontalGroup(
+            panelControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 296, Short.MAX_VALUE)
+        );
+        panelControlLayout.setVerticalGroup(
+            panelControlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 196, Short.MAX_VALUE)
+        );
+
+        panelIdea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        panelIdea.setForeground(new java.awt.Color(102, 102, 102));
+        panelIdea.setPreferredSize(new java.awt.Dimension(300, 200));
+
+        javax.swing.GroupLayout panelIdeaLayout = new javax.swing.GroupLayout(panelIdea);
+        panelIdea.setLayout(panelIdeaLayout);
+        panelIdeaLayout.setHorizontalGroup(
+            panelIdeaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 296, Short.MAX_VALUE)
+        );
+        panelIdeaLayout.setVerticalGroup(
+            panelIdeaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 196, Short.MAX_VALUE)
+        );
+
+        panelCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        panelCode.setForeground(new java.awt.Color(102, 102, 102));
+
+        javax.swing.GroupLayout panelCodeLayout = new javax.swing.GroupLayout(panelCode);
+        panelCode.setLayout(panelCodeLayout);
+        panelCodeLayout.setHorizontalGroup(
+            panelCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 374, Short.MAX_VALUE)
+        );
+        panelCodeLayout.setVerticalGroup(
+            panelCodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 196, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout contentPaneLayout = new javax.swing.GroupLayout(contentPane);
@@ -56,25 +104,34 @@ public class FrameMain extends javax.swing.JFrame {
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentPaneLayout.createSequentialGroup()
+                .addComponent(panelControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelIdea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCode, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPaneLayout.createSequentialGroup()
                 .addComponent(panelTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 500, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelIdea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 344, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(contentPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -113,6 +170,23 @@ public class FrameMain extends javax.swing.JFrame {
         lbTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pizza.png"))); // NOI18N
         lbTitle.setBounds(5,5,300,30);
         panelTitle.add(lbTitle);
+        
+        ///panel control
+        btnImport = new JLabel("Nhập mảng");
+        btnImport.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnImport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/contract.png"))); // NOI18N
+        btnImport.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnImport.setForeground(new java.awt.Color(102, 102, 102));
+        btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnImport.setBounds(50,10,200,30);
+        btnImport.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102,102,102), 1, true));
+        btnImport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                importButtonMouseClicked(evt);
+            }
+        });
+        panelControl.add(btnImport);
+        
         
     }
     /**
@@ -168,8 +242,12 @@ public class FrameMain extends javax.swing.JFrame {
     private JLabel btnMinimize;
     private JLabel btnClose;
     private JLabel lbTitle;
+    private JLabel btnImport;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPane;
+    private javax.swing.JPanel panelCode;
+    private javax.swing.JPanel panelControl;
+    private javax.swing.JPanel panelIdea;
     private javax.swing.JPanel panelTitle;
     // End of variables declaration//GEN-END:variables
 }
