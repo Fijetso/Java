@@ -8,7 +8,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
-import javax.swing.JButton;
+import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,7 +26,6 @@ public class FrameInput extends javax.swing.JFrame {
 	private JPanel contentPane;
 	private JTextField spNum;
 	private JTextField[] txtArrays;
-	private JLabel[] lbArrays;
 	private int[] arrays;
         public static int numberElement = 2;
         private JTextField txtNumberElement;
@@ -34,7 +33,7 @@ public class FrameInput extends javax.swing.JFrame {
         private JLabel btnEnter;
         private JLabel jLabel1;
         private JLabel btnImport;
-        private JLabel btnRamdom;
+        private JLabel btnRandom;
         private JLabel btnCancel;
         private JLabel btnOK;
         private boolean alreadyEnter = false;
@@ -99,18 +98,24 @@ public class FrameInput extends javax.swing.JFrame {
         btnImport.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102,102,102), 1, true));
         btnImport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnImport.setBounds(CONTENTPANE_WIDTH/2 - 150,CONTENTPANE_HEIGHT/2 + 50,150,40);
-        contentPane.add(btnImport);
+//        contentPane.add(btnImport);
         
         ///random button
-        btnRamdom = new JLabel("Nhập ngẫu nhiên");
-        btnRamdom.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnRamdom.setForeground(new java.awt.Color(102, 102, 102));
-        btnRamdom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnRamdom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/shuffle.png"))); // NOI18N
-        btnRamdom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102,102,102), 1, true));
-        btnRamdom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRamdom.setBounds(btnImport.getX()+btnImport.getWidth()+10,btnImport.getY(),200,40);
-        contentPane.add(btnRamdom);
+        btnRandom = new JLabel("Nhập ngẫu nhiên");
+        btnRandom.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnRandom.setForeground(new java.awt.Color(102, 102, 102));
+        btnRandom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnRandom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/shuffle.png"))); // NOI18N
+        btnRandom.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102,102,102), 1, true));
+        btnRandom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRandom.setBounds(btnImport.getX()+btnImport.getWidth()+10,btnImport.getY(),200,40);
+        btnRandom.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                randomButtonMouseClicked(evt);
+            }
+        });
+        contentPane.add(btnRandom);
         
         ///cancel button
         btnCancel = new JLabel("Thoát");
@@ -146,6 +151,12 @@ public class FrameInput extends javax.swing.JFrame {
         createArray();
     }
     
+    private void randomButtonMouseClicked(java.awt.event.MouseEvent evt){
+        Random ran = new Random();
+        for(int i = 0;i<numberElement;i++){
+            txtArrays[i].setText(Integer.toString(ran.nextInt(90)));
+        }
+    }
     private void enterButtonMouseClicked(java.awt.event.MouseEvent evt){
         deleteArray();
         createArray();
