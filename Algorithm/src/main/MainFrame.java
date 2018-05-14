@@ -1,7 +1,7 @@
 package main;
 
-import java.awt.HeadlessException;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -11,8 +11,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        if(arrays!=null){
-            for(int c:arrays){
+        if(array!=null){
+            for(int c:array){
                 System.out.println(c);
             }
         }
@@ -28,7 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        contentPane = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         minimizeLabel = new javax.swing.JLabel();
@@ -36,8 +36,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         importButton = new javax.swing.JButton();
-        numberElementTextField = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         increaseRadioButton = new javax.swing.JRadioButton();
         decreaseRadioButton = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
@@ -65,8 +63,8 @@ public class MainFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
-        jPanel1.setName("MainJFrame"); // NOI18N
-        jPanel1.setLayout(null);
+        contentPane.setName("MainJFrame"); // NOI18N
+        contentPane.setLayout(null);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setForeground(new java.awt.Color(225, 225, 225));
@@ -129,30 +127,20 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel4);
+        contentPane.add(jPanel4);
         jPanel4.setBounds(0, 0, 1000, 48);
 
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
 
         importButton.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         importButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/contract.png"))); // NOI18N
+        importButton.setText("Nhập mảng");
         importButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         importButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 importButtonMouseClicked(evt);
             }
         });
-
-        numberElementTextField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        numberElementTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numberElementTextFieldActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("Nhập vào số phần tử (1<x<16)");
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ascending.png"))); // NOI18N
 
@@ -179,8 +167,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jLabel7)
                         .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(importButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(increaseRadioButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,26 +178,17 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(decreaseRadioButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                                 .addComponent(playButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pauseButton))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(numberElementTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(importButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(pauseButton)))
                         .addGap(32, 32, 32))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(importButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numberElementTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(importButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(increaseRadioButton)
@@ -224,7 +204,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel3);
+        contentPane.add(jPanel3);
         jPanel3.setBounds(0, 50, 300, 140);
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
@@ -260,7 +240,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel2);
+        contentPane.add(jPanel2);
         jPanel2.setBounds(300, 50, 300, 140);
 
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 5, true));
@@ -296,7 +276,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel5);
+        contentPane.add(jPanel5);
         jPanel5.setBounds(600, 50, 400, 140);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/information.png"))); // NOI18N
@@ -305,27 +285,23 @@ public class MainFrame extends javax.swing.JFrame {
                 jLabel11MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel11);
+        contentPane.add(jLabel11);
         jLabel11.setBounds(970, 600, 24, 24);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contentPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
+            .addComponent(contentPane, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(1000, 630));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void numberElementTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberElementTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numberElementTextFieldActionPerformed
 
     private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeLabelMouseClicked
         System.exit(0);
@@ -336,36 +312,24 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_minimizeLabelMouseClicked
 
     private void importButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_importButtonMouseClicked
-        
-        //// nhập số phần tử của mảng
-        String getNumberElement = numberElementTextField.getText();
-        int x;
-        /// ? không vào được trường hợp này
-        if (getNumberElement == null){
-            JOptionPane.showMessageDialog(null,"Yêu cầu nhập số phần tử trước!","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-             try{
-            x = Integer.parseInt(getNumberElement);
-            if(x<2 || x>15){
-                JOptionPane.showMessageDialog(null,"Số phần tử bạn nhập yêu cầu phải lớn hơn 1 và nhỏ hơn 16","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
-            }
-            else{
             FrameInput input = new FrameInput();
-            input.numberElement = Integer.parseInt(numberElementTextField.getText());
             input.setVisible(true);
-//            input.pack();
             input.setLocationRelativeTo(null);
-//            input.setNumberElement(Integer.parseInt(numberElementTextField.getText()));
-//                System.out.println(Integer.parseInt(numberElementTextField.getText())); //// đã ra đúng giá trị
-            }
-            }
-            catch(HeadlessException | NumberFormatException e){
-                 JOptionPane.showMessageDialog(null,"Số phần tử bạn nhập vào không phù hợp","Nhập số phần tử",JOptionPane.WARNING_MESSAGE);
-            }
-        }
     }//GEN-LAST:event_importButtonMouseClicked
 
+    public void showArray(){
+        lbArray = new JLabel[array.length];
+        for(int i=0;i<array.length;i++){
+            lbArray[i] = new JLabel(Integer.toString(array[i]));
+            lbArray[i].setBounds(20,300,40,40);
+            lbArray[i].setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+            lbArray[i].setBounds(jPanel3.getX(),jPanel3.getY()+jPanel3.getHeight()+10,40,40);
+            lbArray[i].setForeground(new java.awt.Color(102, 102, 102));
+            lbArray[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            contentPane.add(lbArray[i]);
+        }
+    }
+    
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
      InforFrame infor = new InforFrame();
      infor.setVisible(true);
@@ -404,10 +368,12 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    public static int[] arrays;
+    public static int[] array;
+    private JLabel[] lbArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> algorithmComboBox;
     private javax.swing.JLabel closeLabel;
+    private javax.swing.JPanel contentPane;
     public javax.swing.JRadioButton decreaseRadioButton;
     public javax.swing.JButton importButton;
     public javax.swing.JRadioButton increaseRadioButton;
@@ -416,11 +382,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -429,7 +393,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel minimizeLabel;
-    public javax.swing.JTextField numberElementTextField;
     public javax.swing.JLabel pauseButton;
     public javax.swing.JLabel playButton;
     // End of variables declaration//GEN-END:variables
