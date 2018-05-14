@@ -1,5 +1,8 @@
 package main;
 
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 
@@ -7,7 +10,7 @@ import javax.swing.JRadioButton;
  *
  * @author SofiaJetson
  */
-public class FrameMain extends javax.swing.JFrame {
+public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 
     /**
      * Creates new form FrameMain
@@ -144,7 +147,7 @@ public class FrameMain extends javax.swing.JFrame {
         btnMinimize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/minimize_button.png"))); // NOI18N
         btnMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMinimize.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMinimize.setBounds( panelTitle.getWidth() - 50, 10 , 20,20);
+        btnMinimize.setBounds( panelTitle.getWidth() - 55, 8 , 24,24);
         btnMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 minimizeLabelMouseClicked(evt);
@@ -156,7 +159,7 @@ public class FrameMain extends javax.swing.JFrame {
         btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/close_button.png"))); // NOI18N
         btnClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClose.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnClose.setBounds( panelTitle.getWidth() - 25, 10 , 20,20);
+        btnClose.setBounds( panelTitle.getWidth() - 30, 8 , 24,24);
         btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 closeLabelMouseClicked(evt);
@@ -188,7 +191,7 @@ public class FrameMain extends javax.swing.JFrame {
         panelControl.add(btnImport);
         
         rdAscending = new JRadioButton();
-        rdAscending.setBounds(10,btnImport.getY() + btnImport.getHeight() + 5,24,24);
+        rdAscending.setBounds(50,btnImport.getY() + btnImport.getHeight() + 20,24,24);
         panelControl.add(rdAscending);
         lbAscending = new JLabel();
         lbAscending.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ascending.png"))); // NOI18N
@@ -204,6 +207,45 @@ public class FrameMain extends javax.swing.JFrame {
         lbDescending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDescending.setBounds(rdDescending.getX() + rdDescending.getWidth() + 2,rdDescending.getY(),24,24);
         panelControl.add(lbDescending);
+        
+        btnPause = new JLabel();
+        btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pause.png"))); // NOI18N
+        btnPause.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPause.setBounds( 300-75, lbDescending.getY() , 24,24);
+        btnPause.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeLabelMouseClicked(evt);
+            }
+        });
+        panelControl.add(btnPause);
+        
+        btnStart = new JLabel();
+        btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/play-button.png"))); // NOI18N
+        btnStart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnStart.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnStart.setBounds( btnPause.getX() - 30, rdDescending.getY() , 24,24);
+        btnStart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startLabelMouseClicked(evt);
+            }
+        });
+        panelControl.add(btnStart);
+        
+        cmbAlgorithm = new JComboBox(strAlgorithm);
+        cmbAlgorithm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cmbAlgorithm.setBackground(new java.awt.Color(102,102,102));
+        cmbAlgorithm.setBounds(rdAscending.getX(), rdAscending.getY() + rdAscending.getHeight() + 10,btnImport.getWidth(),btnImport.getHeight());
+        cmbAlgorithm.setSelectedIndex(0);
+        cmbAlgorithm.addActionListener(this);
+        panelControl.add(cmbAlgorithm);
+        
+        lbIdea = new JLabel("Ý tưởng thuật toán");
+        lbIdea.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lbIdea.setForeground(new java.awt.Color(102, 102, 102));
+        lbIdea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/idea.png"))); // NOI18N
+        lbIdea.setBounds(5,5,300,30);
+        panelIdea.add(lbIdea);
     }
     /**
      * @param args the command line arguments
@@ -243,21 +285,51 @@ public class FrameMain extends javax.swing.JFrame {
     private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
         System.exit(0);
     }                                       
-
     private void minimizeLabelMouseClicked(java.awt.event.MouseEvent evt) {                                           
        this.setState(MainFrame.ICONIFIED);
     }                                          
-
     private void importButtonMouseClicked(java.awt.event.MouseEvent evt) {                                          
             FrameInput input = new FrameInput();
             input.setVisible(true);
             input.setLocationRelativeTo(null);
     }
+    private void startLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
+    } 
+    private void pauseLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
+    } 
+     @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == cmbAlgorithm){
+            JComboBox cmb = (JComboBox)e.getSource();
+            String algorithm = (String) cmb.getSelectedItem();
+            switch(algorithm){
+                case  "Interchange Sort":
+                    break;
+                case "Bubble Sort":
+                    break;
+                case "InsertionSort": 
+                    break;
+                case "Shell Sort": case "HeapSort":
+                    break;
+                case "Quick Sort":
+                    break;
+                case "Merge Sort":
+                    break;
+                default:
+                    return;
+
+            }
+        }
+    }
+    
     private final int MAIN_FRAME_WIDTH = 1000;
     private final int MAIN_FRAME_HEIGHT = 600;
     private JLabel lbTitle, btnMinimize, btnClose;
-    private JLabel btnImport,lbAscending,lbDescending;
+    private JLabel btnImport,lbAscending,lbDescending,btnStart,btnPause;
     private JRadioButton rdAscending,rdDescending;
+    private JComboBox cmbAlgorithm;
+    private String[] strAlgorithm = {"Interchange Sort", "Bubble Sort", "InsertionSort", "Shell Sort", "HeapSort", "Quick Sort", "Merge Sort"};
+    private JLabel lbIdea;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel panelCode;
@@ -265,4 +337,5 @@ public class FrameMain extends javax.swing.JFrame {
     private javax.swing.JPanel panelIdea;
     private javax.swing.JPanel panelTitle;
     // End of variables declaration//GEN-END:variables
+
 }
