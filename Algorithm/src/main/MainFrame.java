@@ -9,11 +9,13 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MainFrame
-     */
     public MainFrame() {
         initComponents();
+        if(arrays!=null){
+            for(int c:arrays){
+                System.out.println(c);
+            }
+        }
     }
 
     /**
@@ -402,7 +404,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    public static int[] arrays;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> algorithmComboBox;
     private javax.swing.JLabel closeLabel;

@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 /**
  *
- * @author SofiaJetson
+ * @author Nguyen Thi Ngoc Huyen
  */
 public class FrameInput extends javax.swing.JFrame {
 
@@ -30,6 +30,7 @@ public class FrameInput extends javax.swing.JFrame {
         public static int numberElement = 2;
         private JTextField txtNumberElement;
         private JLabel jLabel2;
+        private JLabel jLabel3;
         private JLabel btnEnter;
         private JLabel jLabel1;
         private JLabel btnImport;
@@ -57,6 +58,12 @@ public class FrameInput extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/warning.png"))); // NOI18N
         jLabel2.setBounds(10,50,350,40);
         contentPane.add(jLabel2);
+        jLabel3 = new JLabel("Giá trị các phần tử phải nằm trong khoảng từ 0 đến 99");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
+//        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/warning.png"))); // NOI18N
+        jLabel3.setBounds(jLabel2.getX(),jLabel2.getY() + jLabel2.getHeight() + 5,500,40);
+        contentPane.add(jLabel3);
         
         ///number Element textField
         txtNumberElement = new JTextField(Integer.toString(numberElement));
@@ -168,12 +175,20 @@ public class FrameInput extends javax.swing.JFrame {
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt){
         arrays = new int[numberElement];
         for(int i = 0;i<numberElement;i++){
+            try{
             arrays[i]=Integer.parseInt(txtArrays[i].getText());
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"giá trị thứ "+ (i+1) + " không thể xác nhận!","Giá trị trả về sai",JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if(arrays[i]<0 || arrays[i]>100){
+                JOptionPane.showMessageDialog(null,"giá trị thứ "+ (i+1) + " phải nằm trong vùng giá trị từ 0 đến 99","Giá trị ngoài tầm kiểm soát",JOptionPane.WARNING_MESSAGE);
+            }
         }
-//        for(int c:arrays){
-//            System.out.println(c);
-//        }
-    }
+        MainFrame main = new MainFrame();
+        main.arrays = this.arrays;
+        this.setVisible(false);
+        }
     private static int parseNumberElement(String s) {
         int result;
         if (s == null){
@@ -199,8 +214,6 @@ public class FrameInput extends javax.swing.JFrame {
     this.numberElement = numberElement;
     }
     public void createArray(){
-//        if(alreadyEnter)
-//            deleteArray();
         numberElement = parseNumberElement(txtNumberElement.getText());
         if (numberElement == 0)
             return;
@@ -210,7 +223,7 @@ public class FrameInput extends javax.swing.JFrame {
         for(int i = 0;i<numberElement;i++){
             txtArrays[i] = new JTextField("0");
             txtArrays[i].setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-            txtArrays[i].setBounds(20+(i*45),jLabel2.getY()+jLabel2.getHeight()+5,40,40);
+            txtArrays[i].setBounds(20+(i*45),jLabel2.getY()+jLabel2.getHeight()+60,40,40);
             txtArrays[i].setForeground(new java.awt.Color(102, 102, 102));
             txtArrays[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             contentPane.add(txtArrays[i]);
