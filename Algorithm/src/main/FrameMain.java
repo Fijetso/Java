@@ -2,10 +2,14 @@ package main;
 
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -267,6 +271,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbIdea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/idea.png"))); // NOI18N
         lbIdea.setBounds(5,5,300,30);
         panelIdea.add(lbIdea);
+        
         ///code Panel
         lbCode = new JLabel("Thuật toán theo C/C++");
         lbCode.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -274,6 +279,18 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/script.png"))); // NOI18N
         lbCode.setBounds(5,5,300,30);
         panelCode.add(lbCode);
+        
+        scrollCode = new JScrollPane();
+        scrollCode.setBounds(lbCode.getX(),lbCode.getY() + lbCode.getHeight() + 5, panelCode.getWidth() - 10, panelCode.getHeight() - lbCode.getY() - lbCode.getHeight() - 10);
+        scrollCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255), 1, true));
+        panelCode.add(scrollCode);
+        model = new DefaultListModel<>();
+        lsCode = new JList<String>(model);
+        lsCode.setBackground(new java.awt.Color(225,225,225));
+        lsCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255)));
+        lsCode.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsCode.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        scrollCode.setViewportView(lsCode);
         
         /// infor button
         btnInfor = new JLabel();
@@ -378,6 +395,9 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     private JLabel lbIdea;
     
     private JLabel lbCode;
+    private JScrollPane scrollCode;
+    private DefaultListModel<String> model;
+    private JList<String> lsCode;
     
     private JLabel btnInfor;
     
