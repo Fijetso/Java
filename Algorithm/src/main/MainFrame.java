@@ -28,6 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         contentPane = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -141,6 +142,10 @@ public class MainFrame extends javax.swing.JFrame {
                 importButtonMouseClicked(evt);
             }
         });
+
+        buttonGroup1.add(increaseRadioButton);
+
+        buttonGroup1.add(decreaseRadioButton);
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ascending.png"))); // NOI18N
 
@@ -372,6 +377,7 @@ public class MainFrame extends javax.swing.JFrame {
     private JLabel[] lbArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> algorithmComboBox;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel closeLabel;
     private javax.swing.JPanel contentPane;
     public javax.swing.JRadioButton decreaseRadioButton;

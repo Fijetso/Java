@@ -64,8 +64,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelIdea" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="panelCode" pref="378" max="32767" attributes="0"/>
+                  <Component id="panelCode" max="32767" attributes="0"/>
               </Group>
+              <Component id="panelWork" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -78,7 +79,8 @@
                       <Component id="panelIdea" min="-2" max="-2" attributes="0"/>
                       <Component id="panelCode" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="344" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="panelWork" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -190,6 +192,21 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <EmptySpace min="0" pref="196" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
+        <Container class="javax.swing.JPanel" name="panelWork">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="338" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.event.ActionEvent;
+import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +36,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         panelControl = new javax.swing.JPanel();
         panelIdea = new javax.swing.JPanel();
         panelCode = new javax.swing.JPanel();
+        panelWork = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -102,6 +104,17 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             .addGap(0, 196, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout panelWorkLayout = new javax.swing.GroupLayout(panelWork);
+        panelWork.setLayout(panelWorkLayout);
+        panelWorkLayout.setHorizontalGroup(
+            panelWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelWorkLayout.setVerticalGroup(
+            panelWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 338, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout contentPaneLayout = new javax.swing.GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
@@ -112,7 +125,8 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelIdea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCode, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
+                .addComponent(panelCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(panelWork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +137,8 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                     .addComponent(panelControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelIdea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 344, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelWork, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -190,6 +205,8 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         });
         panelControl.add(btnImport);
         
+        groupSort = new ButtonGroup();
+        
         rdAscending = new JRadioButton();
         rdAscending.setBounds(50,btnImport.getY() + btnImport.getHeight() + 20,24,24);
         panelControl.add(rdAscending);
@@ -197,6 +214,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbAscending.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/ascending.png"))); // NOI18N
         lbAscending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbAscending.setBounds(rdAscending.getX() + rdAscending.getWidth() + 2,rdAscending.getY(),24,24);
+        groupSort.add(rdAscending);
         panelControl.add(lbAscending);
         
         rdDescending = new JRadioButton();
@@ -206,6 +224,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbDescending.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/descending.png"))); // NOI18N
         lbDescending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDescending.setBounds(rdDescending.getX() + rdDescending.getWidth() + 2,rdDescending.getY(),24,24);
+        groupSort.add(rdDescending);
         panelControl.add(lbDescending);
         
         btnPause = new JLabel();
@@ -219,6 +238,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         });
         panelControl.add(btnPause);
+        
         
         btnStart = new JLabel();
         btnStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/play-button.png"))); // NOI18N
@@ -240,12 +260,33 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         cmbAlgorithm.addActionListener(this);
         panelControl.add(cmbAlgorithm);
         
+        ///idea panel
         lbIdea = new JLabel("Ý tưởng thuật toán");
         lbIdea.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lbIdea.setForeground(new java.awt.Color(102, 102, 102));
         lbIdea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/idea.png"))); // NOI18N
         lbIdea.setBounds(5,5,300,30);
         panelIdea.add(lbIdea);
+        ///code Panel
+        lbCode = new JLabel("Thuật toán theo C/C++");
+        lbCode.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lbCode.setForeground(new java.awt.Color(102, 102, 102));
+        lbCode.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/script.png"))); // NOI18N
+        lbCode.setBounds(5,5,300,30);
+        panelCode.add(lbCode);
+        
+        /// infor button
+        btnInfor = new JLabel();
+        btnInfor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/information.png"))); // NOI18N
+        btnInfor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInfor.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnInfor.setBounds( panelWork.getWidth() - 30, panelWork.getHeight() - 30 , 24,24);
+        btnInfor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inforLabelMouseClicked(evt);
+            }
+        });
+        panelWork.add(btnInfor);
     }
     /**
      * @param args the command line arguments
@@ -281,7 +322,11 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         });
     }
-    
+     private void inforLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
+         InforFrame infor = new InforFrame();
+         infor.setLocationRelativeTo(null);
+         infor.setVisible(true);
+    } 
     private void closeLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
         System.exit(0);
     }                                       
@@ -327,15 +372,22 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     private JLabel lbTitle, btnMinimize, btnClose;
     private JLabel btnImport,lbAscending,lbDescending,btnStart,btnPause;
     private JRadioButton rdAscending,rdDescending;
+    private ButtonGroup groupSort;
     private JComboBox cmbAlgorithm;
     private String[] strAlgorithm = {"Interchange Sort", "Bubble Sort", "InsertionSort", "Shell Sort", "HeapSort", "Quick Sort", "Merge Sort"};
     private JLabel lbIdea;
+    
+    private JLabel lbCode;
+    
+    private JLabel btnInfor;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel panelCode;
     private javax.swing.JPanel panelControl;
     private javax.swing.JPanel panelIdea;
     private javax.swing.JPanel panelTitle;
+    private javax.swing.JPanel panelWork;
     // End of variables declaration//GEN-END:variables
 
 }
