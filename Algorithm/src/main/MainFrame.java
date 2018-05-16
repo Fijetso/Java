@@ -373,8 +373,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-    public static int[] array;
-    private JLabel[] lbArray;
+    public int[] array;
+    public JLabel[] lbArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> algorithmComboBox;
     private javax.swing.ButtonGroup buttonGroup1;

@@ -6,13 +6,16 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import static main.FrameMain.main;
 
 /**
  *
@@ -25,8 +28,8 @@ public class FrameInput extends javax.swing.JFrame {
         private final int CONTENTPANE_HEIGHT = 400;
 	private JPanel contentPane;
 	private JTextField spNum;
-	private JTextField[] txtArrays;
-	private int[] arrays;
+	private JTextField[] txtArray;
+	private int[] array;
         public static int numberElement = 2;
         private JTextField txtNumberElement;
         private JLabel jLabel2;
@@ -161,7 +164,7 @@ public class FrameInput extends javax.swing.JFrame {
     private void randomButtonMouseClicked(java.awt.event.MouseEvent evt){
         Random ran = new Random();
         for(int i = 0;i<numberElement;i++){
-            txtArrays[i].setText(Integer.toString(ran.nextInt(90)));
+            txtArray[i].setText(Integer.toString(ran.nextInt(90)));
         }
     }
     private void enterButtonMouseClicked(java.awt.event.MouseEvent evt){
@@ -173,23 +176,24 @@ public class FrameInput extends javax.swing.JFrame {
         this.setVisible(false);
     }     
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt){
-        arrays = new int[numberElement];
+        array = new int[numberElement];
         for(int i = 0;i<numberElement;i++){
             try{
-            arrays[i]=Integer.parseInt(txtArrays[i].getText());
+            array[i]=Integer.parseInt(txtArray[i].getText());
             }catch(Exception e){
                 JOptionPane.showMessageDialog(null,"giá trị thứ "+ (i+1) + " không thể xác nhận!","Giá trị trả về sai",JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(arrays[i]<0 || arrays[i]>100){
+            if(array[i]<0 || array[i]>100){
                 JOptionPane.showMessageDialog(null,"giá trị thứ "+ (i+1) + " phải nằm trong vùng giá trị từ 0 đến 99","Giá trị ngoài tầm kiểm soát",JOptionPane.WARNING_MESSAGE);
             }
         }
-        MainFrame main = new MainFrame();
-        main.array = this.arrays;
-        main.showArray();
-        this.setVisible(false);
-        }
+        this.dispose();
+        Frame[] listFrames = Frame.getFrames();
+        ((FrameMain) listFrames[0]).array = this.array;
+//        this.setVisible(false);
+        ((FrameMain) listFrames[0]).createArray();
+    }
     private static int parseNumberElement(String s) {
         int result;
         if (s == null){
@@ -218,16 +222,16 @@ public class FrameInput extends javax.swing.JFrame {
         numberElement = parseNumberElement(txtNumberElement.getText());
         if (numberElement == 0)
             return;
-        txtArrays = new JTextField[numberElement];
-        arrays = new int[numberElement];
+        txtArray = new JTextField[numberElement];
+        array = new int[numberElement];
         
         for(int i = 0;i<numberElement;i++){
-            txtArrays[i] = new JTextField("0");
-            txtArrays[i].setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-            txtArrays[i].setBounds(20+(i*45),jLabel2.getY()+jLabel2.getHeight()+60,40,40);
-            txtArrays[i].setForeground(new java.awt.Color(102, 102, 102));
-            txtArrays[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            contentPane.add(txtArrays[i]);
+            txtArray[i] = new JTextField("0");
+            txtArray[i].setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+            txtArray[i].setBounds(20+(i*45),jLabel2.getY()+jLabel2.getHeight()+60,40,40);
+            txtArray[i].setForeground(new java.awt.Color(102, 102, 102));
+            txtArray[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            contentPane.add(txtArray[i]);
         }
         contentPane.setVisible(true);
         contentPane.validate();
@@ -235,8 +239,8 @@ public class FrameInput extends javax.swing.JFrame {
     }
     public void deleteArray() {
         for (int i = 0; i < numberElement; i++) {
-                txtArrays[i].setVisible(false);
-                contentPane.remove(txtArrays[i]);
+                txtArray[i].setVisible(false);
+                contentPane.remove(txtArray[i]);
         }
     }
     /**

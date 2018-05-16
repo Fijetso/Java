@@ -7,6 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -112,7 +113,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         panelWork.setLayout(panelWorkLayout);
         panelWorkLayout.setHorizontalGroup(
             panelWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 990, Short.MAX_VALUE)
         );
         panelWorkLayout.setVerticalGroup(
             panelWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +220,9 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbAscending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbAscending.setBounds(rdAscending.getX() + rdAscending.getWidth() + 2,rdAscending.getY(),24,24);
         groupSort.add(rdAscending);
+        rdAscending.setSelected(true);
         panelControl.add(lbAscending);
+        rdAscending.addActionListener(this);
         
         rdDescending = new JRadioButton();
         rdDescending.setBounds(lbAscending.getX() + lbAscending.getWidth() + 10,rdAscending.getY(),24,24);
@@ -230,6 +233,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbDescending.setBounds(rdDescending.getX() + rdDescending.getWidth() + 2,rdDescending.getY(),24,24);
         groupSort.add(rdDescending);
         panelControl.add(lbDescending);
+        rdDescending.addActionListener(this);
         
         btnPause = new JLabel();
         btnPause.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pause.png"))); // NOI18N
@@ -285,13 +289,16 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         scrollCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255), 1, true));
         panelCode.add(scrollCode);
         model = new DefaultListModel<>();
-        lsCode = new JList<String>(model);
-        lsCode.setBackground(new java.awt.Color(225,225,225));
-        lsCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255)));
-        lsCode.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        lsCode.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        scrollCode.setViewportView(lsCode);
-        
+        listCode = new JList<String>(model);
+        listCode.setBackground(new java.awt.Color(225,225,225));
+        listCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255)));
+        listCode.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listCode.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        listCode.setSelectedIndex(0);
+        listCode.ensureIndexIsVisible(listCode.getSelectedIndex());
+        scrollCode.setViewportView(listCode);
+        writeInterchangeSort();
+
         /// infor button
         btnInfor = new JLabel();
         btnInfor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/information.png"))); // NOI18N
@@ -355,52 +362,329 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             input.setVisible(true);
             input.setLocationRelativeTo(null);
     }
-    private void startLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
+    public boolean alreadySorted() {
+    	if (isAscending) {
+    		for (int i = 0; i < array.length - 1; i++)
+    			if (array[i] > array[i+1])
+    				return false;
+    	}	
+    	else {
+    		for (int i = 0; i < array.length - 1; i++)
+    			if (array[i] < array[i+1])
+    				return false;
+    	}
+    	return true;
+    }
+    private void startLabelMouseClicked(java.awt.event.MouseEvent evt) { 
+        if(alreadySorted()){
+            JOptionPane.showMessageDialog(null, "Phần tử đã được sắp xếp. Chọn mảng khác");
+            return;
+        }
+        JComboBox cmb = cmbAlgorithm;
+        String algorithm = (String) cmb.getSelectedItem();
+        if(algorithm.equals("Interchange Sort")){
+            InterchangeSort();
+        }
     } 
     private void pauseLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
     } 
      @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == rdAscending){
+            isAscending = true;
+            JComboBox cmb = cmbAlgorithm;
+            String algorithm = (String) cmb.getSelectedItem();
+            if ("Interchange Sort".equals(algorithm))
+                    model.set(4, "                    if(a[j] < a[i])");
+            if ("Insertion Sort".equals(algorithm))
+                    model.set(6,"          while ((postion >= 0) && (a[position] > x)) {");            
+            if ("Selection Sort".equals(algorithm))
+                    model.set(5, "               if (a[j] < a[[position])");
+            if ("Bubble Sort".equals(algorithm))
+                    model.set(4,"               if(a[j] < a[j-1])");
+            return;
+        }
+        if(e.getSource() == rdDescending){
+            isAscending = false;
+            JComboBox cmb = cmbAlgorithm;
+            String algorithm = (String) cmb.getSelectedItem();  
+            if (algorithm.equals("Interchange Sort"))
+                    model.set(4, "                    if(a[j] > a[i])");
+            if (algorithm.equals("Selection Sort"))
+                    model.set(5, "               if (a[j] > a[position])");
+            if (algorithm.equals("Bubble Sort"))
+                    model.set(4,"               if(a[j] > a[j-1])");
+            if (algorithm.equals("Insertion Sort"))
+                    model.set(6,"          while ((position >= 0) && (a[position] < x)) {");
+            return;
+        }
         if(e.getSource() == cmbAlgorithm){
             JComboBox cmb = (JComboBox)e.getSource();
             String algorithm = (String) cmb.getSelectedItem();
+            model.removeAllElements();
             switch(algorithm){
                 case  "Interchange Sort":
+                    writeInterchangeSort();
+                    break;
+                case "Selection Sort":
+                    writeSelectionSort();
                     break;
                 case "Bubble Sort":
+                    writeBubbleSort();
                     break;
-                case "InsertionSort": 
+                case "Insertion Sort": 
+                    writeInsertionSort();
                     break;
-                case "Shell Sort": case "HeapSort":
+                case "Shell Sort": 
+                    writeShellSort();
+                    break;
+                case "Heap Sort":
+                    writeHeapSort();
                     break;
                 case "Quick Sort":
+                    writeQuickSort();
                     break;
                 case "Merge Sort":
                     break;
                 default:
-                    return;
-
+                    break;
             }
+            listCode.setSelectedIndex(0);
+            rdAscending.setSelected(true);
+            return;
         }
     }
-    
+ 
+    public void createArray(){
+        if (array!=null){
+            deleteArray();
+        }
+        if (array.length == 0)
+            return;
+        numberElement = array.length;
+        lbArray = new JLabel[numberElement];
+        int l = numberElement * (40 + 10) - 10;
+        for(int i = 0;i<numberElement;i++){
+            lbArray[i] = new JLabel(Integer.toString(array[i]));
+            lbArray[i].setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+            if(i==0){
+                lbArray[i].setBounds((panelWork.getWidth() - l)/2,(panelWork.getHeight() - 40)/2,40,40);
+            }
+            else{
+                lbArray[i].setBounds(lbArray[i-1].getX() + 45,lbArray[i-1].getY(),40,40);
+            }
+            lbArray[i].setForeground(new java.awt.Color(102, 102, 102));
+            lbArray[i].setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102)));
+            lbArray[i].setBackground(new java.awt.Color(225,225,225));
+            lbArray[i].setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            lbArray[i].setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+            panelWork.add(lbArray[i]);
+        }
+        panelWork.setVisible(true);
+        panelWork.validate();
+        panelWork.repaint();
+    }
+    public void deleteArray() {
+        for (int i = 0; i < numberElement; i++) {
+                lbArray[i].setVisible(false);
+                contentPane.remove(lbArray[i]);
+        }
+    }
+    //* Viết thuật toán lên Code C/C++ */
+    public void writeInterchangeSort() {
+            model.addElement("void InterchangeSort(int a[], int n) {");
+            model.addElement("     int i, j;");
+            model.addElement("          for (i = 0 ; i<n-1 ; i++) {");
+            model.addElement("               for (j =i+1; j < n ; j++) {");
+            model.addElement("                    if(a[j ]< a[i])");
+            model.addElement("                         Swap(a[i], a[j]);");
+            model.addElement("               }");
+            model.addElement("          }");
+            model.addElement("}");
+	}
+    public void writeSelectionSort() {
+            model.addElement("void SelectionSort(int a[],int n ) {");
+            model.addElement("     int position,i,j;");
+            model.addElement("     for (i=0; i<n-1 ; i++) {");
+            model.addElement("          position = i;");
+            model.addElement("          for(j = i+1; j <N ; j++) {");
+            model.addElement("               if (a[j] < a[position])");
+            model.addElement("                    position = j;");
+            model.addElement("               Swap(a[position],a[i]);");
+            model.addElement("          }");
+            model.addElement("     }");
+            model.addElement("}");
+	}
+    public void writeBubbleSort() {
+        model.addElement("void BubbleSort(int a[],int n) {");
+        model.addElement("     int i, j;");
+        model.addElement("     for (i = 0 ; i<n-1 ; i++) {");
+        model.addElement("          for (j =n-1; j >i ; j --) {");
+        model.addElement("               if(a[j] < a[j-1])");
+        model.addElement("                    Swap(a[j], a[j-1];");
+        model.addElement("          }");
+        model.addElement("      }");
+        model.addElement("}");
+	}
+    public void writeInsertionSort() {
+        model.addElement("void InsertionSort(int a[], int n ) {");
+        model.addElement("     int postion, i;");
+        model.addElement("     int x;");
+        model.addElement("     for(i = 1; i < n; i++) {"); 
+        model.addElement("          x = a[i];");
+        model.addElement("          pos = i - 1;");
+        model.addElement("          while ((position >= 0) && (a[postion] > x)) {");
+        model.addElement("               a[position+1] = a[position];");
+        model.addElement("               position--;");
+        model.addElement("          }");
+        model.addElement("     a[position+1] = x];");
+        model.addElement("     }");
+        model.addElement("}");
+    }
+    public void writeShellSort() {
+        model.addElement("void ShellSort(int a[], int n) {");
+        model.addElement("    int gap, i, j, x;");
+        model.addElement("    for (gap = n/2; len > 0; gap /= 2) {");
+        model.addElement("        for (i = gap; i < n; i++) {");
+        model.addElement("            x = a[i];");
+        model.addElement("            j = i - gap;");
+        model.addElement("            while (j >= 0 && x < a[i]) {");
+        model.addElement("                a[j + gap] = a[j];");
+        model.addElement("            }");
+        model.addElement("            j -= gap;");
+        model.addElement("        }");
+        model.addElement("        a[j + gap] = x;");
+        model.addElement("    }");
+        model.addElement("}");
+    }
+    public void writeHeapSort() {
+    	model.addElement("void HeapSort(int a[],int n) {");
+    	model.addElement("     int r;");
+    	model.addElement("     CreateHeap(a,n);");
+    	model.addElement("     r=n-1;");
+    	model.addElement("     while(r>0) {");
+    	model.addElement("          Swap(a[0],a[r]);");
+    	model.addElement("          r--;");
+    	model.addElement("          if(r>0)");
+    	model.addElement("               shift(a,0,r);");
+    	model.addElement("     }");
+    	model.addElement("}");
+    	model.addElement("");
+      	model.addElement("void CreateHeap(int a[],int n) {");
+    	model.addElement("     int l;");
+    	model.addElement("     l=n/2-1;");
+    	model.addElement("     while(l>=0) {");
+    	model.addElement("          shift(a,l,n-1);");
+    	model.addElement("          l=l-1;");
+    	model.addElement("     }");
+    	model.addElement("}");
+    	model.addElement("");
+    	model.addElement("void shift(int a[],int l,int r) {");
+    	model.addElement("     int x,i,j;");
+    	model.addElement("     i=l;");
+    	model.addElement("     j=2*i+1;");
+    	model.addElement("     x=a[i];");
+    	model.addElement("     while(j<=r) {");
+    	model.addElement("          if(j<r)");
+    	model.addElement("          if(a[j]<a[j+1])");
+    	model.addElement("          j++;");
+    	model.addElement("          if(a[j]<=x)");
+    	model.addElement("               return;");
+    	model.addElement("          else {");
+    	model.addElement("               a[i]=a[j]");
+    	model.addElement("               a[j]=x;");
+    	model.addElement("               i=j;");
+    	model.addElement("               j=2*i+1;");
+    	model.addElement("               x=a[i];");
+    	model.addElement("          }");
+    	model.addElement("     }");
+    	model.addElement("}");  	
+    }
+    public void writeQuickSort() {
+    	model.addElement("void QuickSort(int a[], int left, int right) {");
+    	model.addElement("     int i, j, x;");
+    	model.addElement("     x = a[(left+right)/2];");
+    	model.addElement("     i = left; j = right;");
+    	model.addElement("     while(i < j) {");
+    	model.addElement("          while(a[i] < x) i++;");
+    	model.addElement("          while(a[j] > x) j--;");
+    	model.addElement("          if(i <= j) {");
+    	model.addElement("               Swap(a[i],a[j]);");
+    	model.addElement("               i++ ; j--;");
+    	model.addElement("          }");
+    	model.addElement("     }");
+    	model.addElement("     if(left<j)");
+    	model.addElement("          QuickSort(a, left, j)");
+    	model.addElement("     if(i<right)");
+    	model.addElement("          QuickSort(a, i, right);");
+    	model.addElement("}");
+    }
+    //* Sắp xếp thuật toán */
+//    public void InterchangeSort() {
+//		if (isAscending) {
+//			highLight(1);
+//			int i, j;
+//			for (i = 0 ; i < num ; i++) {
+//				highLight(2);
+//                                setlbPoint(lbPoint1, i, "i = ");
+//				for (j = i + 1; j < num ; j++) {
+//                                    setlbPoint(lbPoint2, j, "j = ");
+//					highLight(3);
+//					highLight(4);
+//					if(array[j] < array[i]) {
+//						int temp = array[i];
+//						array[i] = array[j];
+//						array[j] = temp;
+//						highLight(5);
+//						Swap(lbArrays[i], lbArrays[j]);
+//					}
+//				}
+//			}
+//			highLight(0);
+//		} else {
+//			highLight(1);
+//			int i, j;
+//			for (i = 0 ; i < num ; i++) {
+//				highLight(2);
+//                                setlbPoint(lbPoint1, i, "i = ");
+//				for (j = i + 1; j < num ; j++) {
+//                                    setlbPoint(lbPoint2, j, "j = ");
+//					highLight(3);
+//					highLight(4);
+//					if(array[j] > array[i]) {
+//						int temp = array[i];
+//						array[i] = array[j];
+//						array[j] = temp;
+//						highLight(5);
+//						Swap(lbArrays[i], lbArrays[j]);
+//					}
+//				}
+//			}
+//			highLight(0);
+//		}
+//	}
     private final int MAIN_FRAME_WIDTH = 1000;
     private final int MAIN_FRAME_HEIGHT = 600;
+    private boolean isAscending = true;
+    private int numberElement;
+    
     private JLabel lbTitle, btnMinimize, btnClose;
     private JLabel btnImport,lbAscending,lbDescending,btnStart,btnPause;
     private JRadioButton rdAscending,rdDescending;
     private ButtonGroup groupSort;
     private JComboBox cmbAlgorithm;
-    private String[] strAlgorithm = {"Interchange Sort", "Bubble Sort", "InsertionSort", "Shell Sort", "HeapSort", "Quick Sort", "Merge Sort"};
+    private String[] strAlgorithm = {"Interchange Sort", "Selection Sort", "Bubble Sort", "Insertion Sort", "Shell Sort", "Heap Sort", "Quick Sort", "Merge Sort"};
     private JLabel lbIdea;
     
     private JLabel lbCode;
     private JScrollPane scrollCode;
     private DefaultListModel<String> model;
-    private JList<String> lsCode;
+    private JList<String> listCode;
     
     private JLabel btnInfor;
     
+    public static int[] array;
+    private JLabel[] lbArray;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel panelCode;
