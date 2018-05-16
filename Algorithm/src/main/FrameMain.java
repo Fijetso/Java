@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -311,6 +313,28 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         });
         panelWork.add(btnInfor);
+        
+        lbPoint1.setSize(50, 25);
+                lbPoint1.setOpaque(true);
+                lbPoint1.setLocation(50, 50);
+                lbPoint1.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 17));
+                lbPoint1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                lbPoint1.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+                panelWork.add(lbPoint1);
+                panelWork.add(lbPoint2);
+                lbPoint2.setSize(50, 25);
+                lbPoint2.setOpaque(true);
+                lbPoint2.setLocation(50, 50);
+                lbPoint2.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 17));
+                lbPoint2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                lbPoint2.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+                panelWork.add(lbPointM);
+                lbPointM.setSize(50, 25);
+                lbPointM.setOpaque(true);
+                lbPointM.setLocation(50, 50);
+                lbPointM.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 17));
+                lbPointM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                lbPointM.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
     }
     /**
      * @param args the command line arguments
@@ -379,12 +403,16 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         if(alreadySorted()){
             JOptionPane.showMessageDialog(null, "Phần tử đã được sắp xếp. Chọn mảng khác");
             return;
-        }
+            }
+            for(int i = 0;i<numberElement;i++){
+                lbArray[i].setBackground(Color.WHITE);
+            }        
         JComboBox cmb = cmbAlgorithm;
         String algorithm = (String) cmb.getSelectedItem();
         if(algorithm.equals("Interchange Sort")){
             InterchangeSort();
         }
+        waitEnd();
     } 
     private void pauseLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
     } 
@@ -620,49 +648,191 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     	model.addElement("}");
     }
     //* Sắp xếp thuật toán */
-//    public void InterchangeSort() {
-//		if (isAscending) {
-//			highLight(1);
-//			int i, j;
-//			for (i = 0 ; i < num ; i++) {
-//				highLight(2);
-//                                setlbPoint(lbPoint1, i, "i = ");
-//				for (j = i + 1; j < num ; j++) {
-//                                    setlbPoint(lbPoint2, j, "j = ");
-//					highLight(3);
-//					highLight(4);
-//					if(array[j] < array[i]) {
-//						int temp = array[i];
-//						array[i] = array[j];
-//						array[j] = temp;
-//						highLight(5);
-//						Swap(lbArrays[i], lbArrays[j]);
-//					}
-//				}
-//			}
-//			highLight(0);
-//		} else {
-//			highLight(1);
-//			int i, j;
-//			for (i = 0 ; i < num ; i++) {
-//				highLight(2);
-//                                setlbPoint(lbPoint1, i, "i = ");
-//				for (j = i + 1; j < num ; j++) {
-//                                    setlbPoint(lbPoint2, j, "j = ");
-//					highLight(3);
-//					highLight(4);
-//					if(array[j] > array[i]) {
-//						int temp = array[i];
-//						array[i] = array[j];
-//						array[j] = temp;
-//						highLight(5);
-//						Swap(lbArrays[i], lbArrays[j]);
-//					}
-//				}
-//			}
-//			highLight(0);
-//		}
-//	}
+    public void InterchangeSort() {
+		if (isAscending) {
+			highLight(1);
+			int i, j;
+			for (i = 0 ; i < numberElement ; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = i + 1; j < numberElement ; j++) {
+                                    setlbPoint(lbPoint2, j, "j = ");
+					highLight(3);
+					highLight(4);
+					if(array[j] < array[i]) {
+						int temp = array[i];
+						array[i] = array[j];
+						array[j] = temp;
+						highLight(5);
+						Swap(lbArray[i], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		} else {
+			highLight(1);
+			int i, j;
+			for (i = 0 ; i < numberElement ; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = i + 1; j < numberElement ; j++) {
+                                    setlbPoint(lbPoint2, j, "j = ");
+					highLight(3);
+					highLight(4);
+					if(array[j] > array[i]) {
+						int temp = array[i];
+						array[i] = array[j];
+						array[j] = temp;
+						highLight(5);
+						Swap(lbArray[i], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		}
+	}
+    public void waitEnd() {
+    	curT++;
+		
+		int cur = curT;
+		threads[cur] = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	try {
+		    		if (cur != 0) {
+			    		threads[cur-1].join();
+			    	}
+		    		setState(4);
+		    		for (int i = 0; i < numberElement; i++) {
+		    			lbArray[i].setForeground(Color.darkGray);
+		    		}
+                                lbPoint1.setText("");
+                                lbPoint2.setText("");
+                                lbPointM.setText("");
+		    		JOptionPane.showMessageDialog(null,"Đã hoàn thành sắp xếp thuật toán");
+		    	} catch (Exception e) {
+		    		
+		    	}
+		    }
+		});
+		threads[cur].start();
+    }
+       public void highLight(int line) {
+		curT++;
+		
+		int cur = curT;
+		threads[cur] = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	try {
+		    		if (cur != 0) {
+			    		threads[cur-1].join();
+			    	}
+		    		listCode.setSelectedIndex(line);
+                                listCode.ensureIndexIsVisible(line); // Tu cuon den dong dang highlight
+		    		Thread.sleep(time);
+		    	} catch (Exception e) {
+		    		
+		    	}
+		    }
+		});
+		threads[cur].start();
+	}
+       public void stopAllThreads() {
+    	for (int i = 0; i < curT; i++) {
+			try {
+			threads[i].interrupt();
+			} catch (Exception e) {
+				
+			}
+		}
+		curT = -1;
+    }
+        public void setlbPoint(JLabel lbPoint, int i, String s) {
+     curT ++;
+     System.out.println(curT);
+     int cur = curT;
+     threads[cur] = new Thread(new Runnable() {
+         @Override
+         public void run() {
+             try {
+                 if (cur != 0)
+                     threads[cur - 1].join();
+                 if (i == -1) {
+                     lbPoint.setText("");
+                     return;
+                 }
+                 if (s.charAt(0) == 'm') {
+                     lbPoint.setLocation(lbArray[i].getX(), 200);
+                     lbPoint.setText(s);
+                 } else if (s.charAt(0) == 'k') {
+                     lbPoint.setLocation(oriLocat[i], 200);
+                     lbPoint.setText(s + i);
+                 } else {
+                     lbPoint.setLocation(lbArray[i].getX(), 275);
+                     lbPoint.setText(s + i);
+                 }
+             } catch (Exception e){}
+         }
+     });
+     threads[cur].start();
+ }
+        public void Swap(JLabel lb1, JLabel lb2) {
+         int x1 = lb1.getX();
+         int x2 = lb2.getX();
+         curT ++;
+
+         int cur = curT;
+         threads[cur] = new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 try {
+                         if (cur != 0) {
+                                 threads[cur-1].join();
+                         }
+
+                         lb1.setBackground(SystemColor.BLUE);
+                         lb2.setBackground(SystemColor.BLACK);
+                         while (lb1.getY() > 100) {
+                                 lb1.setLocation(lb1.getX(), lb1.getY() - 10);
+                                 lb2.setLocation(lb2.getX(), lb2.getY() + 10);
+                                 lbPointM.setLocation(x2, lbPointM.getY() + 10);
+                                 Thread.sleep(time);
+                         }
+                         while (lb1.getX() < x2) {
+                                 lb1.setLocation(lb1.getX() + 10, lb1.getY());
+                                 lb2.setLocation(lb2.getX() - 10, lb2.getY());
+                                 lbPointM.setLocation(lb2.getX(), 250);
+                                 Thread.sleep(time);
+                         }
+                         while (lb1.getY() < 140) {
+                                 lb1.setLocation(lb1.getX(), lb1.getY() + 10);
+                                 lb2.setLocation(lb2.getX(), lb2.getY() - 10);
+                                 lbPointM.setLocation(x1, lbPointM.getY() - 10);
+                                 Thread.sleep(time);
+                         }
+                         String txtLb1 = lb1.getText();
+                         lb1.setText(lb2.getText());
+                         lb2.setText(txtLb1);
+                         lb1.setLocation(x1, 150);
+                         lb2.setLocation(x2, 150);
+                         lb1.setBackground(SystemColor.inactiveCaption);
+                         lb2.setBackground(SystemColor.inactiveCaption);
+                 } catch (Exception e) {
+                 }
+             }
+         });
+         threads[cur].start();
+ }
+
+        private int[] oriLocat = new int[15];
+    	private int curT = -1;
+       	private Thread[] threads = new Thread[1000000];
+	private int time = 50;
+        private JLabel lbPoint1 = new JLabel();
+        private JLabel lbPoint2 = new JLabel();
+        private JLabel lbPointM = new JLabel();
+
     private final int MAIN_FRAME_WIDTH = 1000;
     private final int MAIN_FRAME_HEIGHT = 600;
     private boolean isAscending = true;
