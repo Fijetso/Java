@@ -454,6 +454,9 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         if(algorithm.equals("Interchange Sort")){
             InterchangeSort();
         }
+        if(algorithm.equals("Selection Sort")){
+            SelectionSort();
+        }
         if(algorithm.equals("Insertion Sort")){
             InsertionSort();
         }
@@ -463,8 +466,14 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         if(algorithm.equals("Bubble Sort")){
             BubbleSort();
         }
+        if(algorithm.equals("Merge Sort")){
+            MergeSort();
+        }
         if(algorithm.equals("Shell Sort")){
             ShellSort();
+        }
+        if(algorithm.equals("Quick Sort")){
+            QuickSort();
         }
         waitEnd();
     } 
@@ -552,13 +561,18 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                     break;
                 case "Heap Sort":
                     writeHeapSort();
+                    txtIdea.setText("");
                     break;
                 case "Quick Sort":
                     writeQuickSort();
+                    txtIdea.setText("");
                     break;
                 case "Merge Sort":
+                    writeMergeSort();
+                    txtIdea.setText("");
                     break;
                 default:
+                    txtIdea.setText("");
                     break;
             }
             listCode.setSelectedIndex(0);
@@ -696,6 +710,52 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     	model.addElement("          QuickSort(a, i, right);");
     	model.addElement("}");
     }
+    public void writeMergeSort() {
+    	model.addElement("void MergeSort(int left, int right) {");
+    	model.addElement("    if (left < right) {");
+    	model.addElement("        int mid = (left + right) / 2;");
+    	model.addElement("        MergeSort(left, mid);");
+    	model.addElement("        MergeSort(mid + 1, right);");
+    	model.addElement("        Merge(left, mid, right);");
+    	model.addElement("    }");
+    	model.addElement("}");
+    	model.addElement("");
+    	model.addElement("public void Merge(int left, int mid, int right) {");
+    	model.addElement("    int n1 = mid - left + 1;");
+    	model.addElement("    int n2 = right - mid;");
+    	model.addElement("    int[] T = new int[n1 + n2];");
+    	model.addElement("    int[] L = new int[n1];");
+    	model.addElement("    int[] R = new int[n2];");
+    	model.addElement("    int i, j, k;");
+    	model.addElement("    for (i = 0; i < n1; i ++)");
+    	model.addElement("        L[i] = array[left + i];");
+    	model.addElement("    for (j = 0; j < n2; j ++)");
+    	model.addElement("        R[j] = array[mid + 1 + j];");
+    	model.addElement("    i = 0; j = 0;");
+        model.addElement("    k = left;");
+        model.addElement("    while (i < n1 && j < n2) {");
+        model.addElement("        if (L[i] <= R[j]) {");
+        model.addElement("            array[k] = L[i];");
+        model.addElement("            i ++;");
+        model.addElement("        } else {");
+        model.addElement("            array[k] = R[j];");
+        model.addElement("            j ++;");
+        model.addElement("        }");
+        model.addElement("        k ++;");
+        model.addElement("    }");
+        model.addElement("    while (i < n1) {");
+        model.addElement("        array[k] = L[i];");
+        model.addElement("        i ++;");
+        model.addElement("        k ++;");
+        model.addElement("    }");
+        model.addElement("    while (j < n2) {");
+        model.addElement("        array[k] = R[j];");
+        model.addElement("        j ++;");
+        model.addElement("        k ++;");
+        model.addElement("    }");
+        model.addElement("}");
+    }
+    
     //</editor-fold>
     //<editor-fold desc="Sắp xếp thuật toán">
     public void setBackgroundMoving(JLabel lb1, JLabel lb2) {
@@ -705,7 +765,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     	lb1.setBackground(processingColor);
     	lb2.setBackground(processingColor);
     }
-    
     public void setBackgroundDone(JLabel lb1, JLabel lb2) {
     	lb1.setOpaque(true);
     	lb2.setOpaque(true);
@@ -713,158 +772,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     	lb1.setBackground(SystemColor.inactiveCaption);
     	lb2.setBackground(SystemColor.inactiveCaption);
     }
-    public void BubbleSort() {
-		if (isAscending) {
-			highLight(1);
-			int i, j;
-			for (i = 0; i< numberElement; i++) {
-				highLight(2);
-                                setlbPoint(lbPoint1, i, "i = ");
-				for (j = numberElement - 1; j > i; j--) {
-					highLight(3);
-					highLight(4);
-                                        setlbPoint(lbPoint2, j, "j = ");
-					if(array[j]< array[j-1]) {
-						int temp = array[j];
-						array[j] = array[j - 1];
-						array[j - 1] = temp;
-						highLight(5);
-						Swap(lbArray[j - 1], lbArray[j]);
-					}
-				}
-			}
-			highLight(0);
-		} else {
-			highLight(1);
-			int i, j;
-			for (i = 0; i< numberElement; i++) {
-				highLight(2);
-                                setlbPoint(lbPoint1, i, "i = ");
-				for (j = numberElement - 1; j > i; j--) {
-					highLight(3);
-					highLight(4);
-                                        setlbPoint(lbPoint2, j, "j = ");
-					if(array[j] > array[j-1]) {
-						int temp = array[j];
-						array[j] = array[j - 1];
-						array[j - 1] = temp;
-						highLight(5);
-						Swap(lbArray[j - 1], lbArray[j]);
-					}
-				}
-			}
-			highLight(0);
-		}
-	}
-	
-    public void InterchangeSort() {
-		if (isAscending) {
-			highLight(1);
-			int i, j;
-			for (i = 0 ; i < numberElement ; i++) {
-				highLight(2);
-                                setlbPoint(lbPoint1, i, "i = ");
-				for (j = i + 1; j < numberElement ; j++) {
-                                    setlbPoint(lbPoint2, j, "j = ");
-					highLight(3);
-					highLight(4);
-					if(array[j] < array[i]) {
-						int temp = array[i];
-						array[i] = array[j];
-						array[j] = temp;
-						highLight(5);
-						Swap(lbArray[i], lbArray[j]);
-					}
-				}
-			}
-			highLight(0);
-		} else {
-			highLight(1);
-			int i, j;
-			for (i = 0 ; i < numberElement ; i++) {
-				highLight(2);
-                                setlbPoint(lbPoint1, i, "i = ");
-				for (j = i + 1; j < numberElement ; j++) {
-                                    setlbPoint(lbPoint2, j, "j = ");
-					highLight(3);
-					highLight(4);
-					if(array[j] > array[i]) {
-						int temp = array[i];
-						array[i] = array[j];
-						array[j] = temp;
-						highLight(5);
-						Swap(lbArray[i], lbArray[j]);
-					}
-				}
-			}
-			highLight(0);
-		}
-	}
-    public void InsertionSort() {
-    	if (isAscending) {
-	        int pos, i;
-	        highLight(1);
-	        int x;
-	        highLight(2);
-	        for (i = 1; i < numberElement; i++) {
-                    highLight(3);
-                    setlbPoint(lbPoint1, i, "i = ");
-	            x = array[i];
-	            highLight(4);
-	            pos = i - 1;
-	            highLight(5);
-	            while ((pos >= 0) && (array[pos] > x)) {
-	            	highLight(6);
-                        setlbPoint(lbPoint2, pos, "j = ");
-	                array[pos + 1] = array[pos];
-	                highLight(7);
-	                if (pos > 0 && array[pos - 1] <= x) {
-	                    Move(lbArray[pos + 1], lbArray[pos], 0);
-	                } else {
-	                    Move(lbArray[pos + 1], lbArray[pos], pos);
-	                }	              
-	                pos--;
-	                highLight(8);
-	            }
-	            highLight(9);
-	            array[pos + 1] = x;
-                    setlbPoint(lbPoint2, -1, null);
-	        }
-	        highLight(0);
-    	}
-    	else {
-    		int pos, i;
-    		highLight(1);
-	        int x;
-	        highLight(2);
-	        for (i = 1; i < numberElement; i++) {
-                    highLight(3);
-                    setlbPoint(lbPoint1, i, "i = ");
-	            x = array[i];
-	            highLight(4);
-	            pos = i - 1;
-	            highLight(5);
-	            while ((pos >= 0) && (array[pos] < x)) {
-	            	highLight(6);
-                        setlbPoint(lbPoint2, pos, "j = ");
-	                array[pos + 1] = array[pos];
-	                highLight(7);
-	                if (pos > 0 && array[pos - 1] >= x) {
-	                    Move(lbArray[pos + 1], lbArray[pos], 0);
-	                } else {
-	                    Move(lbArray[pos + 1], lbArray[pos], pos);
-	                }
-	                pos--;
-	                highLight(8);
-	            }
-	            array[pos + 1] = x;
-	            highLight(9);
-                    setlbPoint(lbPoint2, -1, null);
-	        }
-	        highLight(0);
-    	}
-    }
-     public void Coloring(JLabel lb1, Color c) {
+    public void Coloring(JLabel lb1, Color c) {
         curT ++;
         System.out.println(curT);
         int cur = curT;
@@ -894,7 +802,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                     int i = left;
                     while (i <= right) {
                         if (i != (left + right) / 2)
-                            lbArrays[i].setBackground(c);
+                            lbArray[i].setBackground(c);
                         i ++;
                     }
                     Thread.sleep(time);
@@ -903,7 +811,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         });
         threads[cur].start();
     }
-     public void QuickSortAnimation() {
+    public void QuickSortAnimation() {
         int s, i, j;
         for (s = 0; s < step; s ++) {
             i = lbI[s];
@@ -921,7 +829,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         }
     }
-    
     public void QuickSortAl(int left, int right) {
         if (isAscending) {
 	    	int i, j, x;
@@ -984,13 +891,11 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 	            QuickSortAl(i, right);
         }
     }
-    
-       public void QuickSort() {
+    public void QuickSort() {
         QuickSortAl(0, numberElement - 1);
         QuickSortAnimation();
         step = 0;
     }
-    
     public void MoveShell(JLabel lb1, JLabel lb2,  int next) {
         int x1 = lb1.getX();
         int x2 = lb2.getX();
@@ -1039,103 +944,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         });
         threads[cur].start();
     }
-
-    public void ShellSort() {
-        if (isAscending) {
-            int len, i, j, x;
-            highLight(1);
-            for (len = 11; len > 0; len /= 2) {
-            	highLight(2);
-                for (i = len; i < numberElement; i ++) {
-                    highLight(3);
-                    setlbPoint(lbPoint1, i, "i = ");
-                    x = array[i];
-                    highLight(4);
-                    j = i - len;
-                    highLight(5);
-                    while (j >= 0 && x < array[j]) {
-                    	highLight(6);
-                        setlbPoint(lbPoint2, j, "j = ");
-                        array[j + len] = array[j];
-                        highLight(7);
-                        if (len > 1) {
-                            if (j < len) {
-                                MoveShell(lbArray[j + len], lbArray[j], 0);
-                            } else {
-                                if (x >= array[j - len])
-                                    MoveShell(lbArray[j + len], lbArray[j], 0);
-                                else
-                                    MoveShell(lbArray[j + len], lbArray[j], 1);
-                            }
-                        } else {
-                            if (j < len) {
-                                Move(lbArray[j + len], lbArray[j], 0);
-                            } else {
-                                if (x >= array[j - len])
-                                    Move(lbArray[j + len], lbArray[j], 0);
-                                else
-                                    Move(lbArray[j + len], lbArray[j], 1);
-                            }
-                        }
-                        j -= len;
-                        highLight(8);
-                    }
-                    array[j + len] = x;
-                    highLight(9);
-                    setlbPoint(lbPoint2, -1, null);
-                }
-            }
-            highLight(0);
-        }
-        else {
-            int len, i, j, x;
-            highLight(1);
-            for (len = 11; len > 0; len /= 2) {
-            	 highLight(2);
-                for (i = len; i < numberElement; i ++) {
-                    highLight(3);
-                    setlbPoint(lbPoint1, i, "i = ");
-                    x = array[i];
-                    highLight(4);
-                    j = i - len;
-                    highLight(5);
-                    while (j >= 0 && x > array[j]) {
-                    	highLight(6);
-                        setlbPoint(lbPoint2, j, "j = ");
-                        array[j + len] = array[j];
-                        highLight(7);
-                        if (len > 1) {
-                            if (j < len) {
-                                MoveShell(lbArray[j + len], lbArray[j], 0);
-                            } else {
-                                if (x <= array[j - len])
-                                    MoveShell(lbArray[j + len], lbArray[j], 0);
-                                else
-                                    MoveShell(lbArray[j + len], lbArray[j], 1);
-                            }
-                        } else {
-                            if (j < len) {
-                                Move(lbArray[j + len], lbArray[j], 0);
-                            } else {
-                                if (x <= array[j - len])
-                                    Move(lbArray[j + len], lbArray[j], 0);
-                                else
-                                    Move(lbArray[j + len], lbArray[j], 1);
-                            }
-                        }
-                        j -= len;
-                        highLight(8);
-                    }
-                    array[j + len] = x;
-                    highLight(9);
-                    setlbPoint(lbPoint2, -1, null);
-                }
-            }
-        }
-        highLight(0);
-    }
-    
-    // <editor-fold defaultstate="collapsed" desc="HeapSort">
     public void MovetoLocation(JLabel lb1, int x, int y) {
         curT ++;
         
@@ -1194,7 +1002,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         });
         threads[cur].start();
     }
-
     public void HeapLocationInit() {
         int i, j = 0;
         int row = 1;
@@ -1218,7 +1025,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         }
     }
-    
     public void SwapinHeap(JLabel lb1, JLabel lb2) {
         curT ++;
         System.out.println(curT);
@@ -1270,13 +1076,11 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         });
         threads[cur].start();
     }
-    
     public void SwapHeapEnd(JLabel lb1, JLabel lb2, int xend) {
                     MovetoLocation(lb1, xend, 260);
                     MovetoLocation(lb2, 600, 60);
                     SwapwithoutMoving(lb1, lb2);
     }
-    
     public void SwapwithoutMoving(JLabel lb1, JLabel lb2) {
         curT ++;
         System.out.println(curT);
@@ -1301,7 +1105,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         });
         threads[cur].start();
     }
-    
     public void Shift(int l, int r) {
         int x, i ,j;
         highLight(23);
@@ -1370,7 +1173,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         }
     }
-    
     public void CreateHeap() {
         int l;
         highLight(14);
@@ -1383,34 +1185,6 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             l --;
         }
     }
-    
-    public void HeapSort() {
-        int r;
-        int xend = ((int) ((18 - numberElement) * 0.5) * 70) + 100 + (numberElement - 1) * 70;
-        HeapLocationInit();
-        highLight(2);
-        CreateHeap();
-        highLight(3);
-        r = numberElement - 1;
-        while (r > 0) {
-            highLight(4);
-            highLight(5);
-            int x = array[0];
-            array[0] = array[r];
-            array[r] = x;
-            SwapHeapEnd(lbArray[0], lbArray[r], xend);
-            xend -= 70;
-            highLight(6);
-            r --;
-            highLight(7);
-            if (r > 0) {
-                highLight(8);
-                Shift(0, r);
-            }
-        }
-        SwapHeapEnd(lbArray[0], null, xend);
-    }
-    // </editor-fold>
     public void Move(JLabel lb1, JLabel lb2, int pos) {
         int x1 = lb1.getX();
         int x2 = lb2.getX();
@@ -1589,7 +1363,560 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
          });
          threads[cur].start();
  }
-    //</editor-fold>
+    public void PutUp(int left, int right) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0)
+                        threads[cur - 1].join();
+                    int mid = (left + right) / 2;
+                    for (int i = left; i <= right; i ++) {
+                        if (i < mid + 1)
+                            lbArray[i].setBackground(selectedGreen);
+                        else
+                            lbArray[i].setBackground(selectedYellow);
+                    }
+                    while (lbArray[right].getY() > 50) {
+                        for (int i = left; i <= right; i ++) {
+                            if (lbArray[i].getY() > 50)
+                                lbArray[i].setLocation(lbArray[i].getX(), lbArray[i].getY() - 10);
+                        }
+                        Thread.sleep(time);
+                    }
+                } catch (Exception e) {
+                }
+            }
+        });
+        threads[cur].start();
+    }
+    public void PutDown(JLabel lb1, int x, int y) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0) {
+                        threads[cur - 1].join();
+                    }
+                    int x1 = lb1.getX();
+                    lb1.setBackground(processingColor);
+                    while (lb1.getY() < 100) {
+                        lb1.setLocation(x1, lb1.getY() + 10);
+                        Thread.sleep(time);
+                    }
+                    int y1 = lb1.getY();
+                    if (x1 < x) {
+                        while (lb1.getX() < x) {
+                            lb1.setLocation(lb1.getX() + 10, y1);
+                            Thread.sleep(time);
+                        }
+                        while (lb1.getY() < y) {
+                            lb1.setLocation(x, lb1.getY() + 10);
+                            Thread.sleep(time);
+                        }
+                    } else {
+                        while (lb1.getX() > x) {
+                            lb1.setLocation(lb1.getX() - 10, y1);
+                            Thread.sleep(time);
+                        }
+                        while (lb1.getY() < y) {
+                            lb1.setLocation(x, lb1.getY() + 10);
+                            Thread.sleep(time);
+                        }
+                    }
+                    lb1.setBackground(SystemColor.inactiveCaption);
+                } catch (Exception e) {
+                }
+            }
+        });
+        threads[cur].start();
+    }
+    public void Relocat(int left, int right, int[] T) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0)
+                        threads[cur - 1].join();
+                    for (int i = left; i <= right; i ++) {
+                        if (lbArray[i].getX() != oriLocat[i]) {
+                            lbArray[i].setLocation(oriLocat[i], 150);
+                            lbArray[i].setText(T[i - left] + "");
+                        }
+                    }
+                    Thread.sleep(time);
+                } catch (Exception e) {
+                }
+            }
+        });
+        threads[cur].start();
+    }
+    public void Merge(int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        int[] T = new int[n1 + n2];
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+        int i, j, k;
+        highLight(16);
+        for (i = 0; i < n1; i ++)
+            L[i] = array[left + i];
+        highLight(18);
+        for (j = 0; j < n2; j ++)
+            R[j] = array[mid + 1 + j];
+        setlbPoint(lbPoint1, left, "i = ");
+        setlbPoint(lbPoint2, mid + 1, "j = ");
+        PutUp(left, right);
+        if (isAscending) {
+            i = 0; j = 0;
+            k = left;
+            while (i < n1 && j < n2) {
+                highLight(22);
+                setlbPoint(lbPointM, k, "k = ");
+                highLight(23);
+                if (L[i] <= R[j]) {
+                    setlbPoint(lbPoint1, left + i, "i = ");
+                    highLight(24);
+                    array[k] = L[i];
+                    PutDown(lbArray[left + i], oriLocat[k], 150);
+                    highLight(25);
+                    i ++;
+                } else {
+                    setlbPoint(lbPoint2, mid + 1 + j, "j = ");
+                    highLight(27);
+                    array[k] = R[j];
+                    PutDown(lbArray[mid + 1 + j], oriLocat[k], 150);
+                    highLight(28);
+                    j ++;
+                }
+                highLight(30);
+                k ++;
+            }
+            while (i < n1) {
+                highLight(32);
+                setlbPoint(lbPointM, k, "k = ");
+                setlbPoint(lbPoint1, left + i, "i = ");
+                highLight(33);
+                array[k] = L[i];
+                PutDown(lbArray[left + i], oriLocat[k], 150);
+                i ++;
+                k ++;
+            }
+            while (j < n2) {
+                highLight(37);
+                setlbPoint(lbPointM, k, "k = ");
+                setlbPoint(lbPoint2, mid + 1 + j, "j = ");
+                highLight(38);
+                array[k] = R[j];
+                PutDown(lbArray[mid + 1 + j], oriLocat[k], 150);
+                j ++;
+                k ++;
+            }
+        } else {
+            i = 0; j = 0;
+            k = left;
+            while (i < n1 && j < n2) {
+                highLight(22);
+                setlbPoint(lbPointM, k, "k = ");
+                highLight(23);
+                if (L[i] >= R[j]) {
+                    setlbPoint(lbPoint1, left + i, "i = ");
+                    highLight(24);
+                    array[k] = L[i];
+                    PutDown(lbArray[left + i], oriLocat[k], 150);
+                    highLight(25);
+                    i ++;
+                } else {
+                    setlbPoint(lbPoint2, mid + 1 + j, "j = ");
+                    highLight(27);
+                    array[k] = R[j];
+                    PutDown(lbArray[mid + 1 + j], oriLocat[k], 150);
+                    highLight(28);
+                    j ++;
+                }
+                highLight(30);
+                k ++;
+            }
+            while (i < n1) {
+                highLight(32);
+                setlbPoint(lbPointM, k, "k = ");
+                setlbPoint(lbPoint1, left + i, "i = ");
+                highLight(33);
+                array[k] = L[i];
+                PutDown(lbArray[left + i], oriLocat[k], 150);
+                i ++;
+                k ++;
+            }
+            while (j < n2) {
+                highLight(37);
+                setlbPoint(lbPointM, k, "k = ");
+                setlbPoint(lbPoint2, mid + 1 + j, "j = ");
+                highLight(38);
+                array[k] = R[j];
+                PutDown(lbArray[mid + 1 + j], oriLocat[k], 150);
+                j ++;
+                k ++;
+            }
+        }
+        for (i = 0; i < n1 + n2; i ++)
+            T[i] = array[left + i];
+        Relocat(left, right, T);
+    }
+    public void MergeSortAl(int left, int right) {
+        highLight(1);
+        if (left < right) {
+            highLight(2);
+            int mid = (left + right) / 2;
+            MergeSortAl(left, mid);
+            MergeSortAl(mid + 1, right);
+            Merge(left, mid, right);
+        }
+    }
+    
+    public void MergeSort() {
+        for (int i = 0; i < numberElement; i ++)
+            oriLocat[i] = lbArray[i].getX();
+        MergeSortAl(0, numberElement - 1);
+    }
+    public void BubbleSort() {
+		if (isAscending) {
+			highLight(1);
+			int i, j;
+			for (i = 0; i< numberElement; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = numberElement - 1; j > i; j--) {
+					highLight(3);
+					highLight(4);
+                                        setlbPoint(lbPoint2, j, "j = ");
+					if(array[j]< array[j-1]) {
+						int temp = array[j];
+						array[j] = array[j - 1];
+						array[j - 1] = temp;
+						highLight(5);
+						Swap(lbArray[j - 1], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		} else {
+			highLight(1);
+			int i, j;
+			for (i = 0; i< numberElement; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = numberElement - 1; j > i; j--) {
+					highLight(3);
+					highLight(4);
+                                        setlbPoint(lbPoint2, j, "j = ");
+					if(array[j] > array[j-1]) {
+						int temp = array[j];
+						array[j] = array[j - 1];
+						array[j - 1] = temp;
+						highLight(5);
+						Swap(lbArray[j - 1], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		}
+	}
+    public void ShellSort() {
+        if (isAscending) {
+            int len, i, j, x;
+            highLight(1);
+            for (len = 11; len > 0; len /= 2) {
+            	highLight(2);
+                for (i = len; i < numberElement; i ++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+                    x = array[i];
+                    highLight(4);
+                    j = i - len;
+                    highLight(5);
+                    while (j >= 0 && x < array[j]) {
+                    	highLight(6);
+                        setlbPoint(lbPoint2, j, "j = ");
+                        array[j + len] = array[j];
+                        highLight(7);
+                        if (len > 1) {
+                            if (j < len) {
+                                MoveShell(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x >= array[j - len])
+                                    MoveShell(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    MoveShell(lbArray[j + len], lbArray[j], 1);
+                            }
+                        } else {
+                            if (j < len) {
+                                Move(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x >= array[j - len])
+                                    Move(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    Move(lbArray[j + len], lbArray[j], 1);
+                            }
+                        }
+                        j -= len;
+                        highLight(8);
+                    }
+                    array[j + len] = x;
+                    highLight(9);
+                    setlbPoint(lbPoint2, -1, null);
+                }
+            }
+            highLight(0);
+        }
+        else {
+            int len, i, j, x;
+            highLight(1);
+            for (len = 11; len > 0; len /= 2) {
+            	 highLight(2);
+                for (i = len; i < numberElement; i ++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+                    x = array[i];
+                    highLight(4);
+                    j = i - len;
+                    highLight(5);
+                    while (j >= 0 && x > array[j]) {
+                    	highLight(6);
+                        setlbPoint(lbPoint2, j, "j = ");
+                        array[j + len] = array[j];
+                        highLight(7);
+                        if (len > 1) {
+                            if (j < len) {
+                                MoveShell(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x <= array[j - len])
+                                    MoveShell(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    MoveShell(lbArray[j + len], lbArray[j], 1);
+                            }
+                        } else {
+                            if (j < len) {
+                                Move(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x <= array[j - len])
+                                    Move(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    Move(lbArray[j + len], lbArray[j], 1);
+                            }
+                        }
+                        j -= len;
+                        highLight(8);
+                    }
+                    array[j + len] = x;
+                    highLight(9);
+                    setlbPoint(lbPoint2, -1, null);
+                }
+            }
+        }
+        highLight(0);
+    }
+    public void HeapSort() {
+        int r;
+        int xend = ((int) ((18 - numberElement) * 0.5) * 70) + 100 + (numberElement - 1) * 70;
+        HeapLocationInit();
+        highLight(2);
+        CreateHeap();
+        highLight(3);
+        r = numberElement - 1;
+        while (r > 0) {
+            highLight(4);
+            highLight(5);
+            int x = array[0];
+            array[0] = array[r];
+            array[r] = x;
+            SwapHeapEnd(lbArray[0], lbArray[r], xend);
+            xend -= 70;
+            highLight(6);
+            r --;
+            highLight(7);
+            if (r > 0) {
+                highLight(8);
+                Shift(0, r);
+            }
+        }
+        SwapHeapEnd(lbArray[0], null, xend);
+    }
+    public void InterchangeSort() {
+		if (isAscending) {
+			highLight(1);
+			int i, j;
+			for (i = 0 ; i < numberElement ; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = i + 1; j < numberElement ; j++) {
+                                    setlbPoint(lbPoint2, j, "j = ");
+					highLight(3);
+					highLight(4);
+					if(array[j] < array[i]) {
+						int temp = array[i];
+						array[i] = array[j];
+						array[j] = temp;
+						highLight(5);
+						Swap(lbArray[i], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		} else {
+			highLight(1);
+			int i, j;
+			for (i = 0 ; i < numberElement ; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = i + 1; j < numberElement ; j++) {
+                                    setlbPoint(lbPoint2, j, "j = ");
+					highLight(3);
+					highLight(4);
+					if(array[j] > array[i]) {
+						int temp = array[i];
+						array[i] = array[j];
+						array[j] = temp;
+						highLight(5);
+						Swap(lbArray[i], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		}
+	}
+    public void SelectionSort() {
+		if (isAscending) {
+			highLight(1);
+			int min,i,j; 
+			for (i = 0; i < numberElement - 1; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				min = i;
+                                setlbPoint(lbPointM, i, "min");
+				highLight(3);
+				for(j = i + 1; j < numberElement; j++) {
+					highLight(4);
+					highLight(5);
+                                        setlbPoint(lbPoint2, j, "j = ");
+					if (array[j] < array[min]) {
+						highLight(6);
+						min = j;
+                                                setlbPoint(lbPointM, j, "min");
+					}
+				}				
+				if (min > i) {
+					int temp = array[min];		
+					array[min] = array[i];			
+					array[i] = temp;
+					highLight(7);
+					Swap(lbArray[i], lbArray[min]);
+				}
+			}
+		} else {
+			highLight(1);
+			int min,i,j; 
+			for (i = 0; i < numberElement - 1; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				min = i;
+                                setlbPoint(lbPointM, i, "max");
+				highLight(3);
+				for(j = i + 1; j < numberElement; j++) {
+					highLight(4);
+					highLight(5);
+                                        setlbPoint(lbPoint2, j, "j = ");
+					if (array[j] > array[min]) {
+						highLight(6);
+						min = j;
+                                                setlbPoint(lbPointM, j, "max");
+					}
+				}				
+				if (min > i) {
+					int temp = array[min];		
+					array[min] = array[i];			
+					array[i] = temp;
+					highLight(7);
+					Swap(lbArray[i], lbArray[min]);
+				}
+			}
+		}
+		highLight(0);
+	}
+	
+    public void InsertionSort() {
+    	if (isAscending) {
+	        int pos, i;
+	        highLight(1);
+	        int x;
+	        highLight(2);
+	        for (i = 1; i < numberElement; i++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+	            x = array[i];
+	            highLight(4);
+	            pos = i - 1;
+	            highLight(5);
+	            while ((pos >= 0) && (array[pos] > x)) {
+	            	highLight(6);
+                        setlbPoint(lbPoint2, pos, "j = ");
+	                array[pos + 1] = array[pos];
+	                highLight(7);
+	                if (pos > 0 && array[pos - 1] <= x) {
+	                    Move(lbArray[pos + 1], lbArray[pos], 0);
+	                } else {
+	                    Move(lbArray[pos + 1], lbArray[pos], pos);
+	                }	              
+	                pos--;
+	                highLight(8);
+	            }
+	            highLight(9);
+	            array[pos + 1] = x;
+                    setlbPoint(lbPoint2, -1, null);
+	        }
+	        highLight(0);
+    	}
+    	else {
+    		int pos, i;
+    		highLight(1);
+	        int x;
+	        highLight(2);
+	        for (i = 1; i < numberElement; i++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+	            x = array[i];
+	            highLight(4);
+	            pos = i - 1;
+	            highLight(5);
+	            while ((pos >= 0) && (array[pos] < x)) {
+	            	highLight(6);
+                        setlbPoint(lbPoint2, pos, "j = ");
+	                array[pos + 1] = array[pos];
+	                highLight(7);
+	                if (pos > 0 && array[pos - 1] >= x) {
+	                    Move(lbArray[pos + 1], lbArray[pos], 0);
+	                } else {
+	                    Move(lbArray[pos + 1], lbArray[pos], pos);
+	                }
+	                pos--;
+	                highLight(8);
+	            }
+	            array[pos + 1] = x;
+	            highLight(9);
+                    setlbPoint(lbPoint2, -1, null);
+	        }
+	        highLight(0);
+    	}
+    }    
+//</editor-fold>
     //<editor-fold desc="Khởi tạo các thuộc tính">
     private int[] lbL = new int[50];
     private int[] lbR = new int[50];
