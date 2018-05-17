@@ -217,7 +217,7 @@
                   <Font name="Calibri" size="18" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Nguy&#x1ec5;n Ph&#x1b0;&#x1a1;ng Nam"/>
+                <Property name="text" type="java.lang.String" value="15520518 - Nguy&#x1ec5;n Ph&#x1b0;&#x1a1;ng Nam"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
@@ -226,7 +226,7 @@
                   <Font name="Calibri" size="18" style="2"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="&#x110;&#xe0;o Ti&#x1ebf;n Ph&#xe1;t"/>
+                <Property name="text" type="java.lang.String" value="15520600 - &#x110;&#xe0;o Ti&#x1ebf;n Ph&#xe1;t"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">

@@ -77,11 +77,11 @@ public class InforFrame extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Nguyễn Phương Nam");
+        jLabel5.setText("15520518 - Nguyễn Phương Nam");
 
         jLabel6.setFont(new java.awt.Font("Calibri", 2, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("Đào Tiến Phát");
+        jLabel6.setText("15520600 - Đào Tiến Phát");
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
