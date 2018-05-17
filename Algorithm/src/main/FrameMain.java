@@ -448,7 +448,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     }
     //<editor-fold  desc="Điều khiển bằng chuột">
      private void inforLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
-         InforFrame infor = new InforFrame();
+         FrameInfo infor = new FrameInfo();
          infor.setLocationRelativeTo(null);
          infor.setVisible(true);
     } 
@@ -456,7 +456,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         System.exit(0);
     }                                       
     private void minimizeLabelMouseClicked(java.awt.event.MouseEvent evt) {                                           
-       this.setState(MainFrame.ICONIFIED);
+       this.setState(FrameMain.ICONIFIED);
     }                                          
     private void importButtonMouseClicked(java.awt.event.MouseEvent evt) {                                          
             FrameInput input = new FrameInput();
