@@ -343,6 +343,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                 lbPointM.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, 17));
                 lbPointM.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 lbPointM.setVerticalAlignment(javax.swing.SwingConstants.CENTER);
+                visibleElements(0);
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -375,7 +376,41 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             }
         });
     }
-    
+    public void visibleElements(int state) {
+		switch (state) {
+		case 0: //first state, haven't created arrays.
+			btnImport.setEnabled(true);
+			btnStart.setEnabled(false);
+                        btnPause.setEnabled(false);
+			rdAscending.setEnabled(true);
+			rdDescending.setEnabled(true);
+			break;
+			
+		
+		case 1: //be set values, ready to sort
+                        btnPause.setEnabled(false);
+                        btnImport.setEnabled(true);
+                        btnStart.setEnabled(true);
+                        rdAscending.setEnabled(true);
+                        rdDescending.setEnabled(true);
+			break;
+			
+		case 2: //sorting
+			btnImport.setEnabled(false);
+			btnStart.setEnabled(false);
+                        btnPause.setEnabled(true);
+			rdAscending.setEnabled(false);
+			rdDescending.setEnabled(false);
+			break;
+                default:
+			btnImport.setEnabled(false);
+			btnStart.setEnabled(false);
+                        btnPause.setEnabled(false);
+			rdAscending.setEnabled(true);
+			rdDescending.setEnabled(true);	
+		}
+	}
+	
     public void createArray(){
         if (array!=null){
             deleteArray();
@@ -441,11 +476,12 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     	}
     	return true;
     }
-    private void startLabelMouseClicked(java.awt.event.MouseEvent evt) { 
+    private void startLabelMouseClicked(java.awt.event.MouseEvent evt) {
         if(alreadySorted()){
             JOptionPane.showMessageDialog(null, "Phần tử đã được sắp xếp. Chọn mảng khác");
             return;
             }
+        visibleElements(2);
             for(int i = 0;i<numberElement;i++){
                 lbArray[i].setBackground(Color.WHITE);
             }        
@@ -1241,7 +1277,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 		    		if (cur != 0) {
 			    		threads[cur-1].join();
 			    	}
-		    		setState(4);
+		    		visibleElements(4);
 		    		for (int i = 0; i < numberElement; i++) {
 		    			lbArray[i].setForeground(Color.darkGray);
 		    		}
@@ -1249,6 +1285,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                                 lbPoint2.setText("");
                                 lbPointM.setText("");
 		    		JOptionPane.showMessageDialog(null,"Đã hoàn thành sắp xếp thuật toán");
+                                visibleElements(2);
 		    	} catch (Exception e) {
 		    		
 		    	}

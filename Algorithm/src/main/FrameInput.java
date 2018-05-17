@@ -193,6 +193,8 @@ public class FrameInput extends javax.swing.JFrame {
         ((FrameMain) listFrames[0]).array = this.array;
 //        this.setVisible(false);
         ((FrameMain) listFrames[0]).createArray();
+        ((FrameMain) listFrames[0]).visibleElements(1);
+
     }
     private static int parseNumberElement(String s) {
         int result;
