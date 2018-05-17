@@ -16,7 +16,7 @@ import javax.swing.ListSelectionModel;
 
 /**
  *
- * @author SofiaJetson
+ * @author Nguyen Thi Ngoc Huyen
  */
 public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 
@@ -412,6 +412,9 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         if(algorithm.equals("Interchange Sort")){
             InterchangeSort();
         }
+        if(algorithm.equals("Insertion Sort")){
+            InsertionSort();
+        }
         waitEnd();
     } 
     private void pauseLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
@@ -691,6 +694,116 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 			highLight(0);
 		}
 	}
+    public void InsertionSort() {
+    	if (isAscending) {
+	        int pos, i;
+	        highLight(1);
+	        int x;
+	        highLight(2);
+	        for (i = 1; i < numberElement; i++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+	            x = array[i];
+	            highLight(4);
+	            pos = i - 1;
+	            highLight(5);
+	            while ((pos >= 0) && (array[pos] > x)) {
+	            	highLight(6);
+                        setlbPoint(lbPoint2, pos, "j = ");
+	                array[pos + 1] = array[pos];
+	                highLight(7);
+	                if (pos > 0 && array[pos - 1] <= x) {
+	                    Move(lbArray[pos + 1], lbArray[pos], 0);
+	                } else {
+	                    Move(lbArray[pos + 1], lbArray[pos], pos);
+	                }	              
+	                pos--;
+	                highLight(8);
+	            }
+	            highLight(9);
+	            array[pos + 1] = x;
+                    setlbPoint(lbPoint2, -1, null);
+	        }
+	        highLight(0);
+    	}
+    	else {
+    		int pos, i;
+    		highLight(1);
+	        int x;
+	        highLight(2);
+	        for (i = 1; i < numberElement; i++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+	            x = array[i];
+	            highLight(4);
+	            pos = i - 1;
+	            highLight(5);
+	            while ((pos >= 0) && (array[pos] < x)) {
+	            	highLight(6);
+                        setlbPoint(lbPoint2, pos, "j = ");
+	                array[pos + 1] = array[pos];
+	                highLight(7);
+	                if (pos > 0 && array[pos - 1] >= x) {
+	                    Move(lbArray[pos + 1], lbArray[pos], 0);
+	                } else {
+	                    Move(lbArray[pos + 1], lbArray[pos], pos);
+	                }
+	                pos--;
+	                highLight(8);
+	            }
+	            array[pos + 1] = x;
+	            highLight(9);
+                    setlbPoint(lbPoint2, -1, null);
+	        }
+	        highLight(0);
+    	}
+    }
+    public void Move(JLabel lb1, JLabel lb2, int pos) {
+        int x1 = lb1.getX();
+        int x2 = lb2.getX();
+        curT ++;
+        
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0) {
+                        threads[cur - 1].join();
+                    }
+                    lb1.setOpaque(true);
+                    lb2.setOpaque(true);
+                    lb1.setBackground(Color.CYAN);
+                    lb2.setBackground(Color.CYAN);
+                    while (lb1.getY() > 100) {
+                        lb1.setLocation(lb1.getX(), lb1.getY() - 10);
+                        Thread.sleep(time);
+                    }
+                    while (lb1.getX() > x2) {
+                        lb2.setLocation(lb2.getX() + 10, lb2.getY());
+                        lb1.setLocation(lb1.getX() - 10, lb1.getY());
+                        Thread.sleep(time);
+                    }
+                    while (pos == 0 && lb1.getY() < 150) {
+                        lb1.setLocation(lb1.getX(), lb1.getY() + 10);
+                        Thread.sleep(time);
+                    }
+                    String txtLb1 = lb1.getText();
+                    lb1.setText(lb2.getText());
+                    lb2.setText(txtLb1);
+                    int y1 = lb1.getY();
+                    lb1.setLocation(x1, lb2.getY());
+                    lb2.setLocation(x2, y1);
+                    lb1.setBackground(SystemColor.inactiveCaption);
+                    if (pos == 0)
+                        lb2.setBackground(SystemColor.inactiveCaption);
+               } catch (Exception e) {
+               }
+           }
+        });
+        threads[cur].start();
+    }
+    
     public void waitEnd() {
     	curT++;
 		
@@ -717,67 +830,67 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 		});
 		threads[cur].start();
     }
-       public void highLight(int line) {
-		curT++;
-		
-		int cur = curT;
-		threads[cur] = new Thread(new Runnable() {
-		    @Override
-		    public void run() {
-		    	try {
-		    		if (cur != 0) {
-			    		threads[cur-1].join();
-			    	}
-		    		listCode.setSelectedIndex(line);
-                                listCode.ensureIndexIsVisible(line); // Tu cuon den dong dang highlight
-		    		Thread.sleep(time);
-		    	} catch (Exception e) {
-		    		
-		    	}
-		    }
-		});
-		threads[cur].start();
-	}
-       public void stopAllThreads() {
-    	for (int i = 0; i < curT; i++) {
-			try {
-			threads[i].interrupt();
-			} catch (Exception e) {
-				
-			}
-		}
-		curT = -1;
-    }
-        public void setlbPoint(JLabel lbPoint, int i, String s) {
-     curT ++;
-     System.out.println(curT);
-     int cur = curT;
-     threads[cur] = new Thread(new Runnable() {
-         @Override
-         public void run() {
-             try {
-                 if (cur != 0)
-                     threads[cur - 1].join();
-                 if (i == -1) {
-                     lbPoint.setText("");
-                     return;
+    public void highLight(int line) {
+             curT++;
+
+             int cur = curT;
+             threads[cur] = new Thread(new Runnable() {
+                 @Override
+                 public void run() {
+                     try {
+                             if (cur != 0) {
+                                     threads[cur-1].join();
+                             }
+                             listCode.setSelectedIndex(line);
+                             listCode.ensureIndexIsVisible(line); // Tu cuon den dong dang highlight
+                             Thread.sleep(time);
+                     } catch (Exception e) {
+
+                     }
                  }
-                 if (s.charAt(0) == 'm') {
-                     lbPoint.setLocation(lbArray[i].getX(), 200);
-                     lbPoint.setText(s);
-                 } else if (s.charAt(0) == 'k') {
-                     lbPoint.setLocation(oriLocat[i], 200);
-                     lbPoint.setText(s + i);
-                 } else {
-                     lbPoint.setLocation(lbArray[i].getX(), 275);
-                     lbPoint.setText(s + i);
-                 }
-             } catch (Exception e){}
-         }
-     });
-     threads[cur].start();
+             });
+             threads[cur].start();
+     }
+    public void stopAllThreads() {
+     for (int i = 0; i < curT; i++) {
+                     try {
+                     threads[i].interrupt();
+                     } catch (Exception e) {
+
+                     }
+             }
+             curT = -1;
  }
-        public void Swap(JLabel lb1, JLabel lb2) {
+    public void setlbPoint(JLabel lbPoint, int i, String s) {
+  curT ++;
+  System.out.println(curT);
+  int cur = curT;
+  threads[cur] = new Thread(new Runnable() {
+      @Override
+      public void run() {
+          try {
+              if (cur != 0)
+                  threads[cur - 1].join();
+              if (i == -1) {
+                  lbPoint.setText("");
+                  return;
+              }
+              if (s.charAt(0) == 'm') {
+                  lbPoint.setLocation(lbArray[i].getX(), 200);
+                  lbPoint.setText(s);
+              } else if (s.charAt(0) == 'k') {
+                  lbPoint.setLocation(oriLocat[i], 200);
+                  lbPoint.setText(s + i);
+              } else {
+                  lbPoint.setLocation(lbArray[i].getX(), 275);
+                  lbPoint.setText(s + i);
+              }
+          } catch (Exception e){}
+      }
+  });
+  threads[cur].start();
+}
+    public void Swap(JLabel lb1, JLabel lb2) {
          int x1 = lb1.getX();
          int x2 = lb2.getX();
          curT ++;
@@ -825,13 +938,13 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
          threads[cur].start();
  }
 
-        private int[] oriLocat = new int[15];
-    	private int curT = -1;
-       	private Thread[] threads = new Thread[1000000];
-	private int time = 50;
-        private JLabel lbPoint1 = new JLabel();
-        private JLabel lbPoint2 = new JLabel();
-        private JLabel lbPointM = new JLabel();
+    private int[] oriLocat = new int[15];
+    private int curT = -1;
+    private Thread[] threads = new Thread[1000000];
+    private int time = 50;
+    private JLabel lbPoint1 = new JLabel();
+    private JLabel lbPoint2 = new JLabel();
+    private JLabel lbPointM = new JLabel();
 
     private final int MAIN_FRAME_WIDTH = 1000;
     private final int MAIN_FRAME_HEIGHT = 600;
