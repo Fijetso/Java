@@ -7,7 +7,7 @@ package main;
 
 /**
  *
- * @author SofiaJetson
+ * @author Nguyen Thi Ngoc Huyen
  */
 public class InforFrame extends javax.swing.JFrame {
 

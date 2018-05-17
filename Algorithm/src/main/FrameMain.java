@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 
 /**
@@ -278,6 +279,17 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         lbIdea.setBounds(5,5,300,30);
         panelIdea.add(lbIdea);
         
+        txtIdea = new JTextArea();
+        txtIdea.setEditable(false);
+        txtIdea.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtIdea.setForeground(new java.awt.Color(102, 102, 102));
+        txtIdea.setText("This is the idea of algorithm");
+        txtIdea.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255), 2, true));
+        txtIdea.setBackground(new java.awt.Color(225,225,225));
+        txtIdea.setBounds(lbIdea.getX(),lbIdea.getY() + lbIdea.getHeight() + 5,
+                panelIdea.getWidth() - 10, panelIdea.getHeight() - lbIdea.getY() - lbIdea.getHeight() - 10);
+        panelIdea.add(txtIdea);
+        
         ///code Panel
         lbCode = new JLabel("Thuật toán theo C/C++");
         lbCode.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -287,7 +299,8 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         panelCode.add(lbCode);
         
         scrollCode = new JScrollPane();
-        scrollCode.setBounds(lbCode.getX(),lbCode.getY() + lbCode.getHeight() + 5, panelCode.getWidth() - 10, panelCode.getHeight() - lbCode.getY() - lbCode.getHeight() - 10);
+        scrollCode.setBounds(lbCode.getX(),lbCode.getY() + lbCode.getHeight() + 5,
+                panelCode.getWidth() - 10, panelCode.getHeight() - lbCode.getY() - lbCode.getHeight() - 10);
         scrollCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255), 1, true));
         panelCode.add(scrollCode);
         model = new DefaultListModel<>();
@@ -295,6 +308,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         listCode.setBackground(new java.awt.Color(225,225,225));
         listCode.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255)));
         listCode.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listCode.setForeground(new java.awt.Color(102, 102, 102));
         listCode.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         listCode.setSelectedIndex(0);
         listCode.ensureIndexIsVisible(listCode.getSelectedIndex());
@@ -958,6 +972,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     private JComboBox cmbAlgorithm;
     private String[] strAlgorithm = {"Interchange Sort", "Selection Sort", "Bubble Sort", "Insertion Sort", "Shell Sort", "Heap Sort", "Quick Sort", "Merge Sort"};
     private JLabel lbIdea;
+    private JTextArea txtIdea;
     
     private JLabel lbCode;
     private JScrollPane scrollCode;
