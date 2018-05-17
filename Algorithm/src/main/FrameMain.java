@@ -278,6 +278,8 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         txtIdea.setText("This is the idea of algorithm");
         txtIdea.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255,255,255), 2, true));
         txtIdea.setBackground(new java.awt.Color(225,225,225));
+        txtIdea.setWrapStyleWord(true);
+        txtIdea.setLineWrap(true);
         txtIdea.setBounds(lbIdea.getX(),lbIdea.getY() + lbIdea.getHeight() + 5,
                 panelIdea.getWidth() - 10, panelIdea.getHeight() - lbIdea.getY() - lbIdea.getHeight() - 10);
         panelIdea.add(txtIdea);
@@ -499,44 +501,44 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                     break;
                 case "Selection Sort":
                     writeSelectionSort();
-                    txtIdea.setText("Giả sử ta chọn được thành phần có khóa nhỏ nhất trên \n"
-                            + "mảng là A[k]. Tráo đổi A[0] với A[k], vậy thì lúc này \n"
-                            + "ta sẽ nhận được A[0] là phần tử có khóa nhỏ nhất. \n"
-                            + "Ta cần tìm thành phần có khóa nhỏ nhất trong các \n"
-                            + "phần tử từ A[i] đến A[n-1].Giả sử thành phần đó \n"
-                            + "là A[k] sao cho i <= k <= n-1. Ta lại tráo đổi \n"
-                            + "A[i] với A[k], ta có A[0].key <= A[1].key <= ... \n"
-                            + "<= A[i-1].key <= A[i].key. \n"
+                    txtIdea.setText("Giả sử ta chọn được thành phần có khóa nhỏ nhất trên "
+                            + "mảng là A[k]. Tráo đổi A[0] với A[k], vậy thì lúc này "
+                            + "ta sẽ nhận được A[0] là phần tử có khóa nhỏ nhất. "
+                            + "Ta cần tìm thành phần có khóa nhỏ nhất trong các "
+                            + "phần tử từ A[i] đến A[n-1].Giả sử thành phần đó "
+                            + "là A[k] sao cho i <= k <= n-1. Ta lại tráo đổi "
+                            + "A[i] với A[k], ta có A[0].key <= A[1].key <= ... "
+                            + "<= A[i-1].key <= A[i].key. "
                             + "Tương tự lặp lại cho tới i = n-1");
                     break;
                 case "Bubble Sort":
                     writeBubbleSort();
-                    txtIdea.setText("*Xét lần lượt các cặp 2 phần tử liên tiếp.\n"
-                            + "Nếu phần tử đứng sau nhỏ hơn phần tử đứng \n"
-                            + "trước, ta đổi chỗ 2 phần tử. Nói cách khác, \n"
-                            + "phần tử nhỏ nhất sẽ nổi lên trên.\n"
-                            + "*Lặp lại đến khi không còn 2 phần tử nào \n"
-                            + "thỏa mãn. Có thể chứng minh được số lần \n"
-                            + "lặp không quá n-1, do một phần tử chỉ có \n"
+                    txtIdea.setText("*Xét lần lượt các cặp 2 phần tử liên tiếp."
+                            + "Nếu phần tử đứng sau nhỏ hơn phần tử đứng "
+                            + "trước, ta đổi chỗ 2 phần tử. Nói cách khác, "
+                            + "phần tử nhỏ nhất sẽ nổi lên trên."
+                            + "*Lặp lại đến khi không còn 2 phần tử nào "
+                            + "thỏa mãn. Có thể chứng minh được số lần "
+                            + "lặp không quá n-1, do một phần tử chỉ có "
                             + "thể nổi lên trên không quá n-1 lần.");
                     break;
                 case "Insertion Sort": 
                     writeInsertionSort();
-                    txtIdea.setText("Ý tưởng chính của thuật toán là ta sẽ sắp \n"
-                            + "xếp lần lượt từng đoạn gồm 1 phần tử đầu \n"
-                            + "tiên, 2 phần tử đầu tiên, ...,  phần tử.\n"
-                            + "Giả sử ta đã sắp xếp xong  phần tử của mảng.\n"
-                            + "Để sắp xếp  phần tử đầu tiên, ta tìm vị \n"
-                            + "trí phù hợp của phần tử thứ và \"chèn\" \n"
+                    txtIdea.setText("Ý tưởng chính của thuật toán là ta sẽ sắp "
+                            + "xếp lần lượt từng đoạn gồm 1 phần tử đầu "
+                            + "tiên, 2 phần tử đầu tiên, ...,  phần tử."
+                            + "Giả sử ta đã sắp xếp xong  phần tử của mảng."
+                            + "Để sắp xếp  phần tử đầu tiên, ta tìm vị "
+                            + "trí phù hợp của phần tử thứ và \"chèn\" "
                             + "nó vào đó.");
                     break;
                 case "Shell Sort": 
                     writeShellSort();
-                    txtIdea.setText("Mỗi row được group bởi các step gap, mỗi group \n"
-                            + "sử dụng insertion sort để sắp xếp, khi step gap \n"
-                            + "giảm các group chứa được nhiều record hơn. Khi \n"
-                            + "giá trị của gap được giảm xuống còn 1 toàn bộ dữ \n"
-                            + "liệu được kết hợp thành một group để tạo thành \n"
+                    txtIdea.setText("Mỗi row được group bởi các step gap, mỗi group "
+                            + "sử dụng insertion sort để sắp xếp, khi step gap "
+                            + "giảm các group chứa được nhiều record hơn. Khi "
+                            + "giá trị của gap được giảm xuống còn 1 toàn bộ dữ "
+                            + "liệu được kết hợp thành một group để tạo thành "
                             + "một bộ dữ liệu đã được sắp xếp.");
                     break;
                 case "Heap Sort":
