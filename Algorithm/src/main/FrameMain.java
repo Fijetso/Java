@@ -473,12 +473,28 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
                     break;
                 case "Selection Sort":
                     writeSelectionSort();
+                    txtIdea.setText("Giả sử ta chọn được thành phần có khóa nhỏ nhất trên \n"
+                            + "mảng là A[k]. Tráo đổi A[0] với A[k], vậy thì lúc này \n"
+                            + "ta sẽ nhận được A[0] là phần tử có khóa nhỏ nhất. \n"
+                            + "Ta cần tìm thành phần có khóa nhỏ nhất trong các \n"
+                            + "phần tử từ A[i] đến A[n-1].Giả sử thành phần đó \n"
+                            + "là A[k] sao cho i <= k <= n-1. Ta lại tráo đổi \n"
+                            + "A[i] với A[k], ta có A[0].key <= A[1].key <= ... \n"
+                            + "<= A[i-1].key <= A[i].key. \n"
+                            + "Tương tự lặp lại cho tới i = n-1");
                     break;
                 case "Bubble Sort":
                     writeBubbleSort();
+                    txtIdea.setText("cho chỉ số i chạy từ 0, 1, ..., n-1, nếu hai phần tử\n"
+                            + "kề nhau không đúng trật tự, có nghĩa là: \n"
+                            + "A[i].key > A[i+1].key thì ta tráo đổi \n"
+                            + "hai phần tử A[i] và A[i+1]. \n"
+                            + "Cứ tiếp tục làm như vậy thì ta sẽ đẩy dữ liệu có \n"
+                            + "khóa lớn nhất lên vị trí sau cùng là A[n-1]");
                     break;
                 case "Insertion Sort": 
                     writeInsertionSort();
+                    
                     break;
                 case "Shell Sort": 
                     writeShellSort();
