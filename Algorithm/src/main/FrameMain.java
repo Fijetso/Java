@@ -237,7 +237,7 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         btnPause.setBounds( 300-75, lbDescending.getY() , 24,24);
         btnPause.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                minimizeLabelMouseClicked(evt);
+                pauseLabelMouseClicked(evt);
             }
         });
         panelControl.add(btnPause);
@@ -514,6 +514,9 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         waitEnd();
     } 
     private void pauseLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        deleteArray();
+        visibleElements(0);
+        stopAllThreads();
     } 
      @Override
     public void actionPerformed(ActionEvent e) {
