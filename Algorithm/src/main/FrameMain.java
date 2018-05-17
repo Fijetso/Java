@@ -457,6 +457,15 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
         if(algorithm.equals("Insertion Sort")){
             InsertionSort();
         }
+        if(algorithm.equals("Heap Sort")){
+            HeapSort();
+        }
+        if(algorithm.equals("Bubble Sort")){
+            BubbleSort();
+        }
+        if(algorithm.equals("Shell Sort")){
+            ShellSort();
+        }
         waitEnd();
     } 
     private void pauseLabelMouseClicked(java.awt.event.MouseEvent evt) {                                        
@@ -689,6 +698,65 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
     }
     //</editor-fold>
     //<editor-fold desc="Sắp xếp thuật toán">
+    public void setBackgroundMoving(JLabel lb1, JLabel lb2) {
+    	lb1.setOpaque(true);
+    	lb2.setOpaque(true);
+    	
+    	lb1.setBackground(processingColor);
+    	lb2.setBackground(processingColor);
+    }
+    
+    public void setBackgroundDone(JLabel lb1, JLabel lb2) {
+    	lb1.setOpaque(true);
+    	lb2.setOpaque(true);
+    	
+    	lb1.setBackground(SystemColor.inactiveCaption);
+    	lb2.setBackground(SystemColor.inactiveCaption);
+    }
+    public void BubbleSort() {
+		if (isAscending) {
+			highLight(1);
+			int i, j;
+			for (i = 0; i< numberElement; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = numberElement - 1; j > i; j--) {
+					highLight(3);
+					highLight(4);
+                                        setlbPoint(lbPoint2, j, "j = ");
+					if(array[j]< array[j-1]) {
+						int temp = array[j];
+						array[j] = array[j - 1];
+						array[j - 1] = temp;
+						highLight(5);
+						Swap(lbArray[j - 1], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		} else {
+			highLight(1);
+			int i, j;
+			for (i = 0; i< numberElement; i++) {
+				highLight(2);
+                                setlbPoint(lbPoint1, i, "i = ");
+				for (j = numberElement - 1; j > i; j--) {
+					highLight(3);
+					highLight(4);
+                                        setlbPoint(lbPoint2, j, "j = ");
+					if(array[j] > array[j-1]) {
+						int temp = array[j];
+						array[j] = array[j - 1];
+						array[j - 1] = temp;
+						highLight(5);
+						Swap(lbArray[j - 1], lbArray[j]);
+					}
+				}
+			}
+			highLight(0);
+		}
+	}
+	
     public void InterchangeSort() {
 		if (isAscending) {
 			highLight(1);
@@ -796,7 +864,553 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
 	        highLight(0);
     	}
     }
+     public void Coloring(JLabel lb1, Color c) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0)
+                        threads[cur - 1].join();
+                    lb1.setBackground(c);
+                    Thread.sleep(time);
+                } catch (Exception e) {}
+            }
+        });
+        threads[cur].start();
+    }
+    public void Coloring(int left, int right, Color c) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0)
+                        threads[cur - 1].join();
+                    int i = left;
+                    while (i <= right) {
+                        if (i != (left + right) / 2)
+                            lbArrays[i].setBackground(c);
+                        i ++;
+                    }
+                    Thread.sleep(time);
+                } catch (Exception e) {}
+            }
+        });
+        threads[cur].start();
+    }
+     public void QuickSortAnimation() {
+        int s, i, j;
+        for (s = 0; s < step; s ++) {
+            i = lbI[s];
+            j = lbJ[s];
+            setlbPoint(lbPoint1, i, "i = ");
+            setlbPoint(lbPoint2, j, "j = ");
+            if (i != j) {
+                Coloring(lbArray[(lbL[s] + lbR[s]) / 2], selectedGreen);
+                Coloring(lbL[s], lbR[s], selectedYellow);
+                Swap(lbArray[i], lbArray[j]);
+            }
+            if (lbL[s + 1] + lbR[s + 1] != lbL[s] + lbR[s]) {
+                Coloring(lbArray[(lbL[s] + lbR[s]) / 2], SystemColor.inactiveCaption);
+                Coloring(lbL[s], lbR[s], SystemColor.inactiveCaption);
+            }
+        }
+    }
     
+    public void QuickSortAl(int left, int right) {
+        if (isAscending) {
+	    	int i, j, x;
+	        x = array[(left + right) / 2];
+	        i = left; j = right;
+	        while (i < j) {
+	            while (array[i] < x) {
+                        i ++;
+                    }
+	            while (array[j] > x) {
+                        j --;
+                    }
+	            if (i <= j) {
+                        if (array[i] != array[j]) {
+	                    int temp = array[i];
+	                    array[i] = array[j];
+	                    array[j] = temp;
+	                    if (i != j) {
+                                lbL[step] = left; lbR[step] = right;
+	                        lbI[step] = i; lbJ[step] = j;
+	                        step ++;
+	                    }
+                        }
+	                i ++; j --;
+	            }
+	        }
+	        if (left < j)
+	            QuickSortAl(left, j);
+	        if (i < right)
+	            QuickSortAl(i, right);
+        }
+        else {
+        	int i, j, x;
+	        x = array[(left + right) / 2];
+	        i = left; j = right;
+	        while (i < j) {
+	            while (array[i] > x) {
+                        i ++;
+                    }
+	            while (array[j] < x) {
+                        j --;
+                    }
+	            if (i <= j) {
+                        if (array[i] != array[j]) {
+	                    int temp = array[i];
+	                    array[i] = array[j];
+	                    array[j] = temp;
+	                    if (i != j) {
+                                lbL[step] = left; lbR[step] = right;
+	                        lbI[step] = i; lbJ[step] = j;
+	                        step ++;
+	                    }
+                        }
+	                i ++; j --;
+	            }
+	        }
+	        if (left < j)
+	            QuickSortAl(left, j);
+	        if (i < right)
+	            QuickSortAl(i, right);
+        }
+    }
+    
+       public void QuickSort() {
+        QuickSortAl(0, numberElement - 1);
+        QuickSortAnimation();
+        step = 0;
+    }
+    
+    public void MoveShell(JLabel lb1, JLabel lb2,  int next) {
+        int x1 = lb1.getX();
+        int x2 = lb2.getX();
+        curT ++;
+       
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0) {
+                        threads[cur - 1].join();
+                    }
+                    setBackgroundMoving(lb1, lb2);
+                    while (lb2.getY() < 200) {
+                        if (lb1.getY() > 100)
+                            lb1.setLocation(lb1.getX(), lb1.getY() - 10);
+                        lb2.setLocation(lb2.getX(), lb2.getY() + 10);
+                        Thread.sleep(time);
+                    }
+                    while (lb1.getX() > x2) {
+                        lb2.setLocation(lb2.getX() + 10, lb2.getY());
+                        lb1.setLocation(lb1.getX() - 10, lb1.getY());
+                        Thread.sleep(time);
+                    }
+                    while (lb2.getY() > 150) {
+                        if (next == 0) {
+                            lb1.setLocation(lb1.getX(), lb1.getY() + 10);
+                        }
+                        lb2.setLocation(lb2.getX(), lb2.getY() - 10);
+                        Thread.sleep(time);
+                    }
+                    String txtLb1 = lb1.getText();
+                    lb1.setText(lb2.getText());
+                    lb2.setText(txtLb1);
+                    int y1 = lb1.getY();
+                    lb1.setLocation(x1, lb2.getY());
+                    lb2.setLocation(x2, y1);
+                    if (next == 0)
+                        setBackgroundDone(lb1, lb2);
+                    else
+                        lb1.setBackground(SystemColor.inactiveCaption);
+               } catch (Exception e) {
+               }
+           }
+        });
+        threads[cur].start();
+    }
+
+    public void ShellSort() {
+        if (isAscending) {
+            int len, i, j, x;
+            highLight(1);
+            for (len = 11; len > 0; len /= 2) {
+            	highLight(2);
+                for (i = len; i < numberElement; i ++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+                    x = array[i];
+                    highLight(4);
+                    j = i - len;
+                    highLight(5);
+                    while (j >= 0 && x < array[j]) {
+                    	highLight(6);
+                        setlbPoint(lbPoint2, j, "j = ");
+                        array[j + len] = array[j];
+                        highLight(7);
+                        if (len > 1) {
+                            if (j < len) {
+                                MoveShell(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x >= array[j - len])
+                                    MoveShell(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    MoveShell(lbArray[j + len], lbArray[j], 1);
+                            }
+                        } else {
+                            if (j < len) {
+                                Move(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x >= array[j - len])
+                                    Move(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    Move(lbArray[j + len], lbArray[j], 1);
+                            }
+                        }
+                        j -= len;
+                        highLight(8);
+                    }
+                    array[j + len] = x;
+                    highLight(9);
+                    setlbPoint(lbPoint2, -1, null);
+                }
+            }
+            highLight(0);
+        }
+        else {
+            int len, i, j, x;
+            highLight(1);
+            for (len = 11; len > 0; len /= 2) {
+            	 highLight(2);
+                for (i = len; i < numberElement; i ++) {
+                    highLight(3);
+                    setlbPoint(lbPoint1, i, "i = ");
+                    x = array[i];
+                    highLight(4);
+                    j = i - len;
+                    highLight(5);
+                    while (j >= 0 && x > array[j]) {
+                    	highLight(6);
+                        setlbPoint(lbPoint2, j, "j = ");
+                        array[j + len] = array[j];
+                        highLight(7);
+                        if (len > 1) {
+                            if (j < len) {
+                                MoveShell(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x <= array[j - len])
+                                    MoveShell(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    MoveShell(lbArray[j + len], lbArray[j], 1);
+                            }
+                        } else {
+                            if (j < len) {
+                                Move(lbArray[j + len], lbArray[j], 0);
+                            } else {
+                                if (x <= array[j - len])
+                                    Move(lbArray[j + len], lbArray[j], 0);
+                                else
+                                    Move(lbArray[j + len], lbArray[j], 1);
+                            }
+                        }
+                        j -= len;
+                        highLight(8);
+                    }
+                    array[j + len] = x;
+                    highLight(9);
+                    setlbPoint(lbPoint2, -1, null);
+                }
+            }
+        }
+        highLight(0);
+    }
+    
+    // <editor-fold defaultstate="collapsed" desc="HeapSort">
+    public void MovetoLocation(JLabel lb1, int x, int y) {
+        curT ++;
+        
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0) {
+                        threads[cur - 1].join();
+                    }
+                    lb1.setBackground(processingColor);
+                    int x1 = lb1.getX();
+                    int y1 = lb1.getY();
+                    if (x1 < x && y1 < y) {
+                        while (lb1.getX() < x) {
+                            lb1.setLocation(lb1.getX() + 10, y1);
+                            Thread.sleep(time);
+                        }
+                        while (lb1.getY() < y) {
+                            lb1.setLocation(x, lb1.getY() + 10);
+                            Thread.sleep(time);
+                        }
+                    } else if (x1 >= x && y1 < y) {
+                        while (lb1.getX() > x) {
+                            lb1.setLocation(lb1.getX() - 10, y1);
+                            Thread.sleep(time);
+                        }
+                        while (lb1.getY() < y) {
+                            lb1.setLocation(x, lb1.getY() + 10);
+                            Thread.sleep(time);
+                        }
+                    } else if (x1 < x && y1 >= y) {
+                        while (lb1.getY() > y) {
+                            lb1.setLocation(x1, lb1.getY() - 10);
+                            Thread.sleep(time);
+                        }
+                        while (lb1.getX() < x) {
+                            lb1.setLocation(lb1.getX() + 10, y);
+                            Thread.sleep(time);
+                        }
+                    } else if (x1 >= x && y1 >= y) {
+                        while (lb1.getY() > y) {
+                            lb1.setLocation(x1, lb1.getY() - 10);
+                            Thread.sleep(time);
+                        }
+                        while (lb1.getX() > x) {
+                            lb1.setLocation(lb1.getX() - 10, y);
+                            Thread.sleep(time);
+                        }
+                    }
+                    lb1.setBackground(SystemColor.inactiveCaption);
+                } catch (Exception e) {
+                }
+            }
+        });
+        threads[cur].start();
+    }
+
+    public void HeapLocationInit() {
+        int i, j = 0;
+        int row = 1;
+        int maxirow = 0;
+        int[] xi = {600, 480, 720, 420, 540, 660, 780, 390, 450, 510, 570, 630, 690, 750, 810};
+        int[] yi = {60, 110, 160, 210};
+        MovetoLocation(lbArray[0], xi[0], yi[0]);
+        for (i = 0; i <= (numberElement - 1) / 2; i ++) {
+            if (i > maxirow) {
+                row ++;
+                maxirow = maxirow * 2 + 2;
+            }
+            j = i * 2 + 1;
+            while (j <= i * 2 + 2 && j < numberElement) {
+                if (j == i * 2 + 1) {
+                    MovetoLocation(lbArray[j], xi[j], yi[row]);
+                } else {
+                    MovetoLocation(lbArray[j], xi[j], yi[row]);
+                }
+                j ++;
+            }
+        }
+    }
+    
+    public void SwapinHeap(JLabel lb1, JLabel lb2) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0) {
+                        threads[cur-1].join();
+                    }
+                    setBackgroundMoving(lb1, lb2);
+                    int x1 = lb1.getX();
+                    int x2 = lb2.getX();
+                    int y1 = lb1.getY();
+                    int y2 = lb2.getY();
+                    while (lb2.getY() > y1) {
+                        if (lb1.getY() > y1 - 50)
+                            lb1.setLocation(lb1.getX(), lb1.getY() - 10);
+                        lb2.setLocation(lb2.getX(), lb2.getY() - 10);
+                        Thread.sleep(time);
+                    }
+                    if (x2 < x1) {
+                        while (lb2.getX() < x1) {
+                            lb1.setLocation(lb1.getX() - 10, lb1.getY());
+                            lb2.setLocation(lb2.getX() + 10, lb2.getY());
+                            Thread.sleep(time);
+                        }
+                    } else {
+                        while (lb2.getX() > x1) {
+                            lb1.setLocation(lb1.getX() + 10, lb1.getY());
+                            lb2.setLocation(lb2.getX() - 10, lb2.getY());
+                            Thread.sleep(time);
+                        }
+                    }
+                    while (lb1.getY() < y2) {
+                        lb1.setLocation(lb1.getX(), lb1.getY() + 10);
+                        Thread.sleep(time);
+                    }
+                    String txtLb1 = lb1.getText();
+                    lb1.setText(lb2.getText());
+                    lb2.setText(txtLb1);
+                    lb1.setLocation(x1, y1);
+                    lb2.setLocation(x2, y2);
+                    setBackgroundDone(lb1, lb2);
+                } catch (Exception e) {
+                }
+            }
+        });
+        threads[cur].start();
+    }
+    
+    public void SwapHeapEnd(JLabel lb1, JLabel lb2, int xend) {
+                    MovetoLocation(lb1, xend, 260);
+                    MovetoLocation(lb2, 600, 60);
+                    SwapwithoutMoving(lb1, lb2);
+    }
+    
+    public void SwapwithoutMoving(JLabel lb1, JLabel lb2) {
+        curT ++;
+        System.out.println(curT);
+        int cur = curT;
+        threads[cur] = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (cur != 0) {
+                        threads[cur - 1].join();
+                    }
+                    String txtLb1 = lb1.getText();
+                    lb1.setText(lb2.getText());
+                    lb2.setText(txtLb1);
+                    int x = lb1.getX();
+                    int y = lb1.getY();
+                    lb1.setLocation(lb2.getX(), lb2.getY());
+                    lb2.setLocation(x, y);
+                } catch (Exception e) {
+                }
+            }
+        });
+        threads[cur].start();
+    }
+    
+    public void Shift(int l, int r) {
+        int x, i ,j;
+        highLight(23);
+        i = l;
+        highLight(24);
+        j = i * 2 + 1;
+        highLight(25);
+        x = array[i];
+        if (isAscending) {
+            while (j <= r) {
+                highLight(26);
+                highLight(27);
+                if (j < r) {
+                    highLight(28);
+                    if (array[j] < array[j + 1]) {
+                        highLight(29);
+                        j++;
+                    }
+                }
+                highLight(30);
+                if (array[j] <= x) {
+                    highLight(31);
+                    return;
+                } else {
+                    highLight(33);
+                    array[i] = array[j];
+                    highLight(34);
+                    array[j] = x;
+                    SwapinHeap(lbArray[i], lbArray[j]);
+                    highLight(35);
+                    i = j;
+                    highLight(36);
+                    j = i * 2 + 1;
+                    highLight(37);
+                    x = array[i];
+                }
+            }
+        } else {
+            while (j <= r) {
+                highLight(26);
+                highLight(27);
+                if (j < r) {
+                    highLight(28);
+                    if (array[j] > array[j + 1]) {
+                        highLight(29);
+                        j ++;
+                    }
+                }
+                highLight(30);
+                if (array[j] >= x) {
+                    highLight(31);
+                    return;
+                } else {
+                    highLight(33);
+                    array[i] = array[j];
+                    highLight(34);
+                    array[j] = x;
+                    SwapinHeap(lbArray[i], lbArray[j]);
+                    highLight(35);
+                    i = j;
+                    highLight(36);
+                    j = i * 2 + 1;
+                    highLight(37);
+                    x = array[i];
+                }
+            }
+        }
+    }
+    
+    public void CreateHeap() {
+        int l;
+        highLight(14);
+        l = numberElement / 2 - 1;
+        while (l >= 0) {
+            highLight(15);
+            highLight(16);
+            Shift(l, numberElement - 1);
+            highLight(17);
+            l --;
+        }
+    }
+    
+    public void HeapSort() {
+        int r;
+        int xend = ((int) ((18 - numberElement) * 0.5) * 70) + 100 + (numberElement - 1) * 70;
+        HeapLocationInit();
+        highLight(2);
+        CreateHeap();
+        highLight(3);
+        r = numberElement - 1;
+        while (r > 0) {
+            highLight(4);
+            highLight(5);
+            int x = array[0];
+            array[0] = array[r];
+            array[r] = x;
+            SwapHeapEnd(lbArray[0], lbArray[r], xend);
+            xend -= 70;
+            highLight(6);
+            r --;
+            highLight(7);
+            if (r > 0) {
+                highLight(8);
+                Shift(0, r);
+            }
+        }
+        SwapHeapEnd(lbArray[0], null, xend);
+    }
+    // </editor-fold>
     public void Move(JLabel lb1, JLabel lb2, int pos) {
         int x1 = lb1.getX();
         int x2 = lb2.getX();
@@ -977,6 +1591,14 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
  }
     //</editor-fold>
     //<editor-fold desc="Khởi tạo các thuộc tính">
+    private int[] lbL = new int[50];
+    private int[] lbR = new int[50];
+    private int[] lbI = new int[50];
+    private int[] lbJ = new int[50];
+    private int step = 0;	
+    private Color processingColor = new Color(255, 153, 153);
+    private Color selectedGreen = new Color(153, 255, 153);
+    private Color selectedYellow = new Color(255, 255, 153);
     private int[] oriLocat = new int[15];
     private int curT = -1;
     private Thread[] threads = new Thread[1000000];
