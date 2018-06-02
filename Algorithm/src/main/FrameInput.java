@@ -188,6 +188,10 @@ public class FrameInput extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,"giá trị thứ "+ (i+1) + " phải nằm trong vùng giá trị từ 0 đến 99","Giá trị ngoài tầm kiểm soát",JOptionPane.WARNING_MESSAGE);
             }
         }
+        if(areTheSame()){
+            JOptionPane.showMessageDialog(null, "Mảng bạn vừa nhập có giá trị bằng nhau, không hợp lệ để sắp xếp", "Lỗi nhập mảng",  JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         this.dispose();
         Frame[] listFrames = Frame.getFrames();
         ((FrameMain) listFrames[0]).array = this.array;
@@ -244,6 +248,13 @@ public class FrameInput extends javax.swing.JFrame {
                 txtArray[i].setVisible(false);
                 contentPane.remove(txtArray[i]);
         }
+    }
+    private boolean areTheSame(){
+        for(int i=1;i< numberElement;i++){
+            if(array[i-1] != array[i])
+                return false;
+        }
+        return true;
     }
     /**
      * This method is called from within the constructor to initialize the form.

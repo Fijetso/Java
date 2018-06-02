@@ -555,6 +555,13 @@ public class FrameMain extends JFrame implements java.awt.event.ActionListener{
             switch(algorithm){
                 case  "Interchange Sort":
                     writeInterchangeSort();
+                    txtIdea.setText("Ý tưởng của thuật toán này là bắt cặp tất cả các phần tử"
+                            + " trong dãy cần sắp xếp và đổi chỗ hai phần tử trong cặp nếu "
+                            + "chúng nghịch thế (không thỏa điều kiện thứ tự).\n" 
+                            + "Để bắt cặp tất cả các phần tử trong dãy, ta dùng 2 vòng lặp."
+                            + " Vòng lặp ngoài sẽ chạy từ đầu dãy đến phần tử kế cuối. Vòng "
+                            + "lặp trong sẽ chạy từ phần tử tiếp theo của vị trí đang xét ở "
+                            + "vòng lặp ngoài. Mỗi lần xét ta sẽ so sánh 2 phần tử trong cặp. ");
                     break;
                 case "Selection Sort":
                     writeSelectionSort();
